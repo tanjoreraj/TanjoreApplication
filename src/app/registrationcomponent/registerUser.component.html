@@ -44,9 +44,14 @@
                     </div>
                 </div>
                 <p-footer>
-                    <div class="ui-dialog-buttonpane ui-helper-clearfix">
-                        <button type="button" pButton icon="fa fa-close" (click)="delete()" label="Delete">Clear</button>
-                        <button type="button" pButton icon="fa fa-check" (click)="save()" label="Save">Save</button>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                                <button type="button" pButton icon="fa fa-close" (click)="deleteSelectedUser(this.userForm.controls.first_name.value)" label="Delete">Delete</button>
+                                <button type="button" pButton icon="fa fa-check" (click)="saveSelectedUser()" label="Save">Save</button>
+                                <button type="button" pButton icon="fa fa-check" (click)="updateSelectedUser(this.userForm.controls.first_name.value)" label="Save">Update</button>
+                            </div>
+                        </div>
                     </div>
                 </p-footer>
                 </form>
@@ -120,7 +125,7 @@
             </ng-template>
         </p-table>-->
         
-        <p-table [columns]="cols" [value]="usersList" selectionMode="single" [(selection)]="selectedUser" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="15">
+        <!--<p-table [columns]="cols" [value]="usersList" selectionMode="single" [(selection)]="selectedUser" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="7">
                 <ng-template pTemplate="caption">
                     List of Cars
                 </ng-template>
@@ -144,9 +149,9 @@
                         <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()">ADD</button>
                     </div>
                 </ng-template>    
-        </p-table>
+        </p-table>-->
         
-        <!--<p-table #dt [columns]="cols" [value]="usersList">
+        <p-table #dt [columns]="cols" [value]="usersList" (onRowSelect)="onRowSelect($event)" selectionMode="single" [(selection)]="selectedUser">
             <ng-template pTemplate="caption">
                 <div style="text-align: right">        
                     <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
@@ -177,4 +182,4 @@
                         <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Add">ADD</button>
                     </div>
             </ng-template> 
-        </p-table>-->
+        </p-table>

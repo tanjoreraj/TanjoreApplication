@@ -20,6 +20,8 @@ export class UserRegistrationComponent implements OnInit {
     newUser: boolean;
     user: any;
     selectedUser :any[];
+    selectedUserId: any;
+    selectedUserDetails: any;
     //cars: usersList[];
 
     constructor(private registerService: UserRegistrationService,
@@ -48,13 +50,13 @@ export class UserRegistrationComponent implements OnInit {
         this.addNewUserDialog = false;
     }*/
 
-    delete() {
+    //delete() {
         /*let index = this.cars.indexOf(this.selectedCar);
         this.cars = this.cars.filter((val, i) => i != index);
         this.car = null;*/
-        this.createForm();
-        this.addNewUserDialog = false;
-    }
+       // this.createForm();
+     //   this.addNewUserDialog = false;
+    //}
 
     onRowSelect(event) {
         console.log(event);
@@ -104,11 +106,31 @@ export class UserRegistrationComponent implements OnInit {
         });
     }
 
-    save(){
+    saveSelectedUser(){
         this.registerService.postusersList(this.userForm.value).subscribe(response => {
             console.log("response",response);
             this.getUsers();
         })
         this.addNewUserDialog = false;
+    }
+
+    deleteSelectedUser(userName) {
+        this.usersList.filter(value => { if(userName === value.first_name) { this.selectedUserId = value._id; } });
+        this.registerService.deleteUser(this.selectedUserId).subscribe(response => {
+            if(response) {
+                this.addNewUserDialog = false;
+                this.getUsers();
+            }
+        });
+    }
+
+    updateSelectedUser(userName) {
+        this.usersList.filter(value => { if(userName === value.first_name) { this.selectedUserDetails = value; } });
+        this.registerService.updateUser(this.selectedUserDetails,this.selectedUserDetails._id).subscribe(response => {
+            if(response) {
+                this.addNewUserDialog = false;
+                this.getUsers();
+            }
+        });
     }
 }

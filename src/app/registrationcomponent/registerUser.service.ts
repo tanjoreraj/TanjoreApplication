@@ -25,4 +25,13 @@ export class UserRegistrationService {
     getusersList() {
         return this.http.get(this.baseUrl);
     }
+
+    deleteUser(id) {
+        console.log("id",id);
+        return this.http.delete(this.baseUrl + `/${id}`);
+    }
+
+    updateUser(userDetails,id) {
+        return this.http.delete(this.baseUrl + `/${id}`, userDetails);
+    }
 }
