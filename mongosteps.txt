@@ -1,0 +1,52 @@
+install mongodb 
+set enviromental variables --> path --> path of the bin folder in mongodb
+to start the mongodb--> 
+1) open cmd and go to the path where mongodb is installed and give command
+ mongod --dbpath E:\ApplicationDevelopment\mongodb\data\db
+2) open cmd with run as adminsitrator and start the mongodb by giving the command
+net start MongoDB
+3) if you want to create data in the mongodb within the cmd use command
+mongo
+4) mongo shell is open and ready to enter the data
+show dbs -- shows avaialble dbs
+use rajdb -- creates new db
+db.createUser({
+	user: "raj",
+	pwd: "123",
+	roles: ["readWrite", "dbAdmin"]
+});
+
+db.createCollection('Users');
+show collections
+
+db.interestLists.insert({sno: 1,name:"Raj",amount:100000,date:"01/08/2018",interest:1.25,interestPerMonth:1250});
+db.interestLists.insert({sno: 1,name:"Raju",amount:200000,date:"01/08/2018",interest:1.00,interestPerMonth:1000});
+db.interestLists.insert({sno: 1,name:"Surender",amount:150000,date:"01/08/2018",interest:1.50,interestPerMonth:1500});
+db.interestLists.insert({sno: 1,name:"Praveen",amount:2500000,date:"01/08/2018",interest:2.00,interestPerMonth:2000});
+
+db.Users.insert({firstName: "Raj",lastName: "Tanjore"});
+db.Users.find();
+db.Users.find().pretty();
+db.Users.update({firstName: "Raj"},{$set{gender: "Male"}});
+db.Users.update({firstName: "Raj"},{$inc{age:3}}); -- increment age by 3
+db.Users.update({firstName: "Raj"},{$unset:age}); -- removes a field
+> db.registerusers.remove({_id: ObjectId("5b77ca9aa4edff23500746a4")})
+
+if updating something and it is not found in the db then you can insert that column with "upsert command"
+
+db.Users.insert({firstName: "Raj"},{firstName: "Tanjore", lastName: "Raj"},{upsert: true});
+
+
+
+
+mongod --directoryperdb --dbpath E:\ApplicationDevelopment\mongodb\data\db --logpath E:\ApplicationDevelopment\mongodb\log\mongo.log --logappend --install
+1) https://www.youtube.com/watch?v=8k4kuStCOLU
+https://www.youtube.com/watch?v=wxpJWRiX7HY
+https://www.youtube.com/watch?v=8k4kuStCOLU&t=436s
+https://www.youtube.com/watch?v=pWbMrx5rVBE--mongodb
+http://mongodb.github.io/node-mongodb-native/2.0/tutorials/connecting/-- mongodb page
+
+MEAN Stack Application Tutorial | Build a MEAN Application From Scratch | MEAN Stack App | Edureka
+https://www.youtube.com/watch?v=wtIvu085uU0&t=2219s
+
+https://www.youtube.com/watch?v=UYh6EvpQquw--refer this
