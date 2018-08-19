@@ -4,7 +4,7 @@ import { TableModule } from 'primeng/table';
 import { MenuItem } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
 import { UserRegistrationService } from './registerUser.service';
-import { registerColumnDef } from '../../assets/tableconfig/registerColumnDef';
+import { columnDef } from '../../assets/tableconfig/columnDef';
 
 @Component({
     selector: 'app-registeruser',
@@ -30,7 +30,7 @@ export class UserRegistrationComponent implements OnInit {
     ngOnInit(){
         this.getUsers();
         this.createForm();
-        this.cols = registerColumnDef.cols;
+        this.cols = columnDef.registerColumnDef;
     }
 
     showDialogToAdd() {

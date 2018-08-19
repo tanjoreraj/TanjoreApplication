@@ -8,15 +8,19 @@ import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
 import { AppComponent } from './app.component';
 import { UserRegistrationComponent } from './registrationcomponent/registerUser.component';
+import { InterestListsComponent } from './interestsListComponent/interestLists.component';
 
 
 import { UserRegistrationService } from './registrationcomponent/registerUser.service';
+import { InterestListsService } from './interestsListComponent/interestLists.service';
+import { AppRoutingModule } from './/app-routing.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserRegistrationComponent
+    UserRegistrationComponent,
+    InterestListsComponent
   ],
   imports: [
     BrowserModule,
@@ -24,9 +28,13 @@ import { UserRegistrationService } from './registrationcomponent/registerUser.se
     ReactiveFormsModule,
     TableModule,
     DialogModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AppRoutingModule
   ],
-  providers: [UserRegistrationService],
+  providers: [
+    UserRegistrationService,
+    InterestListsService
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
