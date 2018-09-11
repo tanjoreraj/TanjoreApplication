@@ -5,11 +5,11 @@ import { UserRegistrationComponent } from '../app/registrationcomponent/register
 import { InterestListsComponent } from '../app/interestsListComponent/interestLists.component';
 
 const appRoutes: Routes = [
-  {
-    path: 'UserRegistration', component: UserRegistrationComponent,
-    children: [
+  {path: 'UserRegistration', component: UserRegistrationComponent},
+    {path: 'InterestList', component: InterestListsComponent}
+    /*children: [
       { path: 'InterestList', component: InterestListsComponent },
-      /*{ path: 'ProductOffer/:productOfferId', component: ProductOfferComponent, canDeactivate: [preventUnsavedChangesGuard], 
+      { path: 'ProductOffer/:productOfferId', component: ProductOfferComponent, canDeactivate: [preventUnsavedChangesGuard], 
               canActivate: [AccessGuard] },
       { path: 'Bundle/:bundleId', component: BundleComponent, canDeactivate: [preventUnsavedChangesGuard] },
       { path: 'CreateProductOffer', component: ProductOfferComponent, canDeactivate: [preventUnsavedChangesGuard] },
@@ -30,10 +30,10 @@ const appRoutes: Routes = [
       { path: 'PriceableItemTemplates/:templateId/:kind', component: PiTemplateDetailsComponent, canDeactivate: [UnsavedChangesGuard] },
       { path: 'PriceableItemTemplates/:templateId/:kind/:isChild', component: PiTemplateDetailsComponent, canDeactivate: [UnsavedChangesGuard] },
       { path: 'AdjustmentReasonsGrid', component: AdjustmentReasonsGridComponent, canDeactivate: [UnsavedChangesGuard]},
-      { path: 'PriceableItemTemplates', component: PriceableItemAdjustmentComponent}*/
+      { path: 'PriceableItemTemplates', component: PriceableItemAdjustmentComponent}
     ]
   },
-  { path: '', redirectTo: 'UserRegistration/InterestList', pathMatch: 'full' },
+  { path: '', redirectTo: 'UserRegistration/InterestList', pathMatch: 'full' },*/
 ];
 
 @NgModule({

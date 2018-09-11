@@ -1,0 +1,52 @@
+<div class="modal" [ngStyle]="{'display' : popUp ? 'block' : 'none' }">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header popUpHeader">
+          <h6 class="modal-title">SQL Query Builder - Impala</h6>
+          <button type="button" class="close modal-close" (click)="closePopUp()" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body popUpBody">
+            <!--<app-corn-builder></app-corn-builder>-->
+            <app-sql-builder></app-sql-builder>
+        </div>
+        
+        <!-- Modal footer 
+        <div class="modal-footer">
+          <!--<button type="button" class="btn btn-danger" (click)="closePopUp()" data-dismiss="modal">Close</button>
+        </div>-->
+        
+      </div>
+    </div>
+  </div>
+  <div *ngIf="popUp" class="modal-backdrop show" ></div>
+
+<!--
+  <div class="modal fade" id="myModal" [ngStyle]="{'display': visible ? 'block' : 'none'}" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content
+      <div>
+      <div class="modal-content" [ngClass]="changeContent.triggeredFrom === 'ScheduledTrigger' ? 'cron-content' : ''">
+        <div class="modal-header bg-purple color-white">
+            <h4 class="modal-title">{{changeContent.modalHeader}}</h4>
+         
+        </div>
+        <div class="modal-body">
+          <div *ngIf="changeContent.triggeredFrom === 'ScheduledTrigger'"><app-cron-builder></app-cron-builder></div>
+          <p *ngIf="changeContent.triggeredFrom === 'ViewAllTrigger'">{{changeContent.modalBody}}</p>
+        </div><hr>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary">{{changeContent.modalFooterSave}}</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close()">{{changeContent.modalFooterCancel}}</button>
+        </div>
+      </div>
+    </div>
+      
+    </div>
+  </div>
+  <div *ngIf="visible" class="modal-backdrop show" ></div>-->
+  

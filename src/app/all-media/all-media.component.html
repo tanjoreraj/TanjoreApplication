@@ -1,0 +1,218 @@
+<div class="col-md-12 allMediaPage">
+  <div class="row">
+  <div class="col-md-12 allMediaHeader">
+    <h4>Create Trigger</h4>
+  </div>
+  <form class="form-horizontal col-sm-12" [formGroup]="triggerForm">
+  <div class="row form-group">
+    <label class="control-label col-sm-2">Name:</label>
+    <div class="col-sm-10">
+    <input type="text" class="form-control" formControlName="triggerName">
+    </div>
+  </div>
+  
+  <div class="row form-group">
+    <label class="control-label col-sm-2">Description:</label>
+    <div class="col-sm-10">
+    <input type="text" class="form-control" formControlName="description">
+    </div>
+  </div>					
+  
+    <div class="row form-group">
+    <label class="control-label col-sm-2">Active:</label>
+    <div class="col-sm-10">
+        <ng-select [items]="activeData"
+        [selectOnTab]="true"
+        bindValue="value"
+        labelForId="age"
+        placeholder="No Active Profile selected"
+        formControlName="active">
+        </ng-select>
+    </div>
+  </div>
+  
+  <div class="row form-group">
+    <label class="control-label col-sm-2">User groups:</label>
+    <div class="col-sm-10">
+        <ng-select [items]="userdata"
+        [selectOnTab]="true"
+        bindValue="value"
+        labelForId="age"
+        placeholder="No User Profile selecteded"
+        formControlName="userGroup">
+        </ng-select>
+    </div>
+  </div>
+
+  <div class="row form-group">
+    <label class="control-label col-sm-2">Trigger Type:</label>
+    <div class="col-sm-10">
+        <ng-select [items]="triggerTypes"
+        [selectOnTab]="true"
+        bindValue="value"
+        labelForId="age"
+        placeholder="No Trigger Type selected"
+        formControlName="triggerTypes">
+        </ng-select>
+    </div>
+  </div>
+<div [ngSwitch]="triggerValue">
+  <div *ngSwitchCase="'Schedule Trigger'">
+      <div class="row form-group tiggerScheduler">
+          <label class="control-label col-sm-2 display-inline">Configure Scheduler:</label>
+          <div class="col-sm-10">
+          <input type="text" class="form-control" formControlName="scheduler">
+          <button class="btn btn-primary btn-md" (click)="openModalPopup()">Configure</button>
+          </div>
+      </div>
+    
+      <div class="row form-group tiggerScheduler">
+          <label class="control-label col-sm-2 display-inline">End Time:</label>
+          <div class="col-sm-10">
+          <input type="text" class="form-control" formControlName="endTime">
+          </div>
+      </div>
+  </div>
+  <div *ngSwitchCase="'Manual Trigger'">
+      <div class="row form-group tiggerScheduler">
+          <label class="control-label col-sm-2 display-inline">Status:</label>
+          <div class="col-sm-10">
+          <input type="text" class="form-control" formControlName="status">
+          </div>
+      </div>
+      <div class="form-group">
+        <div class="row col-md-10 offset-md-2">
+          <div class="form-inline col-md-5">
+            <label class="col-md-2">Key:</label>
+            <input type="text" class="form-control col-md-10" formControlName="key">
+          </div>
+          <div class="form-inline col-md-5">
+            <label class="col-md-2">Value:</label>
+            <input type="text" class="form-control col-md-10" formControlName="values">
+          </div>
+          <div class="form-inline col-md-1">
+            <button type="button" class="btn btn-success btn-sm" (click)="add(this.triggerForm.controls.key.value,this.triggerForm.controls.values.value)">Add</button>
+          </div>
+          <hr>
+          <div class="container manualTrigger" *ngIf="valueTypes.length > 0">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Key</th>
+                  <th>Value</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let values of valueTypes">
+                  <td>{{values.key}}</td>
+                  <td>{{values.value}}</td>
+                  <td><button type="button" class="btn btn-danger btn-sm" (click)="delete(values.key)">Delete</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+            </div>
+      </div>
+  </div>
+  <div *ngSwitchCase="'db Polling'">
+    <div class="row form-group dbTigger">
+        <label class="control-label col-sm-2 display-inline">SQL:</label>
+        <div class="col-sm-10">
+        <button class="btn btn-primary btn-md" (click)="openModalPopup()">Add Sql</button>
+        </div>
+    </div>
+
+    <div class="row form-group tiggerScheduler">
+        <label class="control-label col-sm-2 display-inline">something:</label>
+        <div class="col-sm-10">
+        <input type="text" class="form-control" formControlName="end">
+        </div>
+    </div>
+
+    <div class="row form-group tiggerScheduler">
+        <label class="control-label col-sm-2 display-inline">DQ Rule SQL:</label>
+        <div class="col-sm-10">
+        <textarea class="form-control" rows="5"></textarea>
+        </div>
+    </div>
+
+  </div>
+  <div *ngSwitchCase="'File Transfer'">
+      <div class="row form-group tiggerScheduler">
+          <label class="control-label col-sm-2 display-inline">File Name:</label>
+          <div class="col-sm-10">
+          <input type="text" class="form-control" formControlName="fileName">
+          </div>
+      </div>
+      <div class="row form-group tiggerScheduler">
+          <label class="control-label col-sm-2 display-inline">File Path:</label>
+          <div class="col-sm-10">
+          <input type="text" class="form-control" formControlName="filePath">
+          </div>
+      </div>
+      <div class="row form-group tiggerScheduler">
+          <label class="control-label col-sm-2 display-inline">File Search:</label>
+          <div class="col-sm-10">
+          <input type="text" class="form-control" formControlName="fileSearch">
+          </div>
+      </div>
+      <div class="row form-group tiggerScheduler">
+          <label class="control-label col-sm-2 display-inline">Minimum Age:</label>
+          <div class="col-sm-10">
+          <input type="text" class="form-control" formControlName="minAge">
+          </div>
+      </div>
+      <div class="row form-group tiggerScheduler">
+          <label class="control-label col-sm-2 display-inline">Maximum Age:</label>
+          <div class="col-sm-10">
+          <input type="text" class="form-control" formControlName="maxAge">
+          </div>
+      </div>
+      <div class="form-group fileTrigger">
+        <label class="control-label">File Watcher:</label>
+        <div class="row col-md-10 offset-md-2">
+          <div class="col-md-12">
+            <label class="col-md-5">Key</label>
+            <label class="col-md-5">Value</label>
+            <label class="col-md-2">Actions</label>
+          </div>
+          <div class="col-md-12 form-inline">
+            <input type="text" class="form-control col-md-4 fileTriggerKey" formControlName="key">
+            <input type="text" class="form-control col-md-4 fileTriggerValue" formControlName="values">
+            <button type="button" class="btn btn-success btn-sm" (click)="add(this.triggerForm.controls.key.value,this.triggerForm.controls.values.value)">Add</button>
+          </div>
+          <hr>
+          <div class="container manualTrigger" *ngIf="valueTypes.length > 0">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Key</th>
+                  <th>Value</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let values of valueTypes">
+                  <td>{{values.key}}</td>
+                  <td>{{values.value}}</td>
+                  <td><button type="button" class="btn btn-danger btn-sm" (click)="delete(values.key)">Delete</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+            </div>
+      </div>
+  </div>
+</div>
+    <hr>
+    <div class="row"> <!-- Submit Button -->
+    <div class="col-md-12 text-center">
+      <button class="btn btn-primary btn-md triggerButton" (click)="saveTrigger()">Save</button>
+      <button class="btn btn-default btn-md" (click)="resetTrigger()">Cancel</button>
+      </div>
+    </div>  
+  </form>
+  <app-modalPopup *ngIf="showPopUp"></app-modalPopup>
+</div>
+</div>

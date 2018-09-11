@@ -1,0 +1,26 @@
+.tabSection {
+    background-color: #F7F6F6;
+    margin: 3% 1%;
+    border-radius: 5px;
+}
+
+.tabHeader {
+    padding: 2% 1% 1% 0;
+    margin: 0px;
+}
+
+p {
+    margin: 0 0 5px;
+}
+
+.normalSection {
+    margin: 3% 1%;
+}
+
+.showCheckbox {
+   margin-top: 10%;
+}
+
+.showCheckbox label {
+    vertical-align: middle;
+}

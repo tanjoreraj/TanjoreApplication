@@ -1,1 +1,184 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+.tabSection {
+    background-color: #F7F6F6;
+    margin: 3% 1%;
+    border-radius: 5px;
+}
+
+.tabHeader {
+    padding: 2% 1% 1% 0;
+    margin: 0px;
+}
+
+p {
+    margin: 0 0 5px;
+}
+
+.normalSection {
+    margin: 3% 1%;
+}
+
+.showCheckbox {
+   margin-top: 10%;
+}
+
+.showCheckbox label {
+    vertical-align: middle;
+}
+
+.allMediaPage{
+    background-color: #F7F6F6;
+    border: 1px solid #ccc;
+}
+
+.allMediaHeader {
+    background-color: purple;
+    margin: 0 0 3% 0;
+    padding: 5px;
+}
+
+.allMediaHeader h4 {
+    text-align: center;
+    color: #fff;
+}
+
+.triggerInput {
+    padding-right : 5%;
+}
+
+.triggerButton {
+    margin: 2%;
+}
+
+.tiggerScheduler button {
+    position : absolute;
+    top: 0px;
+    right: 16px;
+}
+
+.cronWeeklyBox {
+    float: left;
+    padding: 2%;
+}
+
+.caret {
+    display: none;
+}
+
+.table th, .table td {
+    padding: 0.40rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+.manualTrigger {
+    margin-top: 2%;
+}
+
+.fileTrigger label {
+ margin-bottom: 2%;
+ float: left;
+}
+
+.dbTigger button {
+ position : absolute;
+ top: 0px;
+}
+
+.fileTriggerKey {
+    margin: 0% 9% 0% 1%;
+}
+
+.fileTriggerValue {
+    margin-right: 8%;
+}
+
+.sqlSidebar{
+   border: 1px solid #ccc;
+   height: 385px;
+   overflow: auto;
+}
+
+.sqlTextarea textarea {
+    min-width: 100%
+}
+
+.sqlFooterButtons button{
+    width: 150px;
+    margin:0px 2px 2px 2px;
+}
+
+.sqlFooter {
+    display:inline;
+    margin-top: 10px;
+}
+/**/
+
+.popUpBody {
+    background-color: #F7F6F6;
+    height: 470px;
+    overflow:auto;
+}
+
+@media (min-width: 320px) and (max-width:768px) {
+    .popUpBody {
+        background-color: #F7F6F6;
+        height: 500px;
+        overflow: scroll;
+    } 
+}
+
+.sqlButtons button{
+    background-color: #ccc;
+    width: 110px;
+    margin:0px 2px 4px 4px;
+}
+
+.helperSearch {
+    border: none;
+    width: 100%;
+    padding-left: 5%;
+}
+
+.helperDataSection li {
+    list-style: none;
+    padding-left: 5%;
+}
+
+.helperDataSection {
+    background-color: #fff;
+    width: 100%;
+    margin-top: 3px;
+    height: 200px;
+    overflow: auto;
+}
+
+.helperDescriptionTab {
+    margin-top: 8%;
+}
+
+.mnemonicsRadioSelection{
+    margin: 0px 5px 15px 0px;
+}
+
+.popUpHeader {
+    background-color: purple;
+    color: #fff;
+    padding: 8px;
+}
+
+.modal-close {
+    color: #fff;
+    margin: 0px;
+    padding: 5px;
+}
+
+.helperDescription {
+    background-color: #fff;
+    height: 180px;
+}
+
+

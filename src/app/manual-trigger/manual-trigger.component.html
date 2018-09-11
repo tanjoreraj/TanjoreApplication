@@ -1,0 +1,49 @@
+<div class="row allMediaPage"><br/>
+  <div class="col-md-12 allMediaHeader">
+    <h4>Manual Trigger</h4>
+  </div>
+  <form class="form-horizontal col-sm-12 margin-left100" [formGroup]="manualTriggerForm">
+  <div class="form-group triggerInput">
+    <label class="control-label col-sm-2">Source type:</label>
+    <div class="col-sm-10">
+    <select class="form-control" formControlName="sourceType">
+      <option *ngFor="let type of sourceType" [value]="type">{{type}}</option>
+    </select>
+    </div>
+  </div> 
+  
+    <div class="form-group triggerInput">
+    <label class="control-label col-sm-2">Source:</label>
+    <div class="col-sm-10">
+      <div class="custom-file mb-3">
+        <input type="file" class="custom-file-input" formControlName="source">
+        <label class="custom-file-label" for="customFile">Choose file</label>
+      </div>
+      <input type="file" id="myFile" name="filename2">
+    </div>
+  </div>
+  
+  <div class="form-group triggerInput">
+    <label class="control-label col-sm-2">User groups:</label>
+    <div class="col-sm-10">
+    <select class="form-control" formControlName="userGroup">
+      <option *ngFor="let user of userGroup" [value]="user">{{user}}</option>
+    </select>
+    </div>
+  </div>
+  
+  <div class="form-group triggerInput">
+    <label class="control-label col-sm-2">Wildcard:</label>
+    <div class="col-sm-10">
+    <input type="text" class="form-control" formControlName="wildCard">
+    </div>
+  </div>
+    <hr>
+    <div class="row"> <!-- Submit Button-->
+    <div class="col-md-12 text-center">
+      <button class="btn btn-primary btn-md triggerButton" (click)="saveManualTrigger()">Save</button>
+      <button class="btn btn-default btn-md">Cancel</button>
+      </div>
+    </div>  
+  </form>	
+</div>

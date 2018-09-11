@@ -1,0 +1,80 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="sqlSidebar">
+        <ngTree [treeData]="treeData" [treeConfig]="treeConfig"></ngTree>
+      </div>
+    </div>
+    <div class="col-sm-8">
+      <div class="sqlTextarea">
+        <textarea rows="10" [(ngModel)]="sqlQuery" placeholder="Enter SQL Here">{{sqlQuery}}</textarea>
+      </div>
+      <div class="sqlButtons">
+        <button type="button" class="btn btn-sm" (click)="addQuery('SELECT')">SELECT</button>
+        <button type="button" class="btn btn-sm" (click)="addQuery('JOIN')">JOIN</button>
+        <button type="button" class="btn btn-sm" (click)="addQuery('LEFT')">LEFT</button>
+        <button type="button" class="btn btn-sm" (click)="addQuery('RIGHT')">RIGHT</button>
+        <button type="button" class="btn btn-sm" (click)="addQuery('FULL')">FULL</button>
+        <button type="button" class="btn btn-sm" (click)="addQuery('+')">plus(+)</button>
+        <button type="button" class="btn btn-sm" (click)="addQuery('-')">minus(-)</button>
+        <button type="button" class="btn btn-sm" (click)="addQuery('||')">concat(||)</button>
+        <button type="button" class="btn btn-sm" (click)="addQuery('IS NULL')">IS NULL</button>
+        <button type="button" class="btn btn-sm" (click)="addQuery('IS NOT NULL')">IS NOT NULL</button>
+        <button type="button" class="btn btn-sm" (click)="addQuery('^')">XOR(^)</button>
+        <button type="button" class="btn btn-sm" (click)="addQuery('==')">==</button>
+        <button type="button" class="btn btn-sm" (click)="addQuery('<>')"><></button>
+        <button type="button" class="btn btn-sm" (click)="addQuery('!=')">!=</button>
+        <button type="button" class="btn btn-sm" (click)="addQuery('>')">></button>
+        <button type="button" class="btn btn-sm" (click)="addQuery('<')"><</button>
+      </div>
+    </div>
+  
+    <div class="sqlFooterButtons">
+      <div class="float-left sqlFooter">
+        <button type="button" class="btn btn-primary btn-sm" (click)="helperQuery()">Helper F(x)</button>
+        <button type="button" class="btn btn-primary btn-sm" (click)="mnemonicsQuery()">Mnemonics</button>
+      </div>
+      <div class="float-right sqlFooter">
+        <button type="button" class="btn bg-purple btn-sm" (click)="clearQuery()">Clear SQL</button>
+        <button type="button" class="btn bg-purple btn-sm" (click)="validateQuery(sqlQuery)">Validate SQL</button>
+      </div>
+    </div>
+  </div>
+    <hr>
+  <div *ngIf="helperTab">
+    <div class="row">
+      <div class="col-sm-6">
+          <input class="helperSearch" [(ngModel)]="searchHelper" placeholder="Type to Filter">
+          <div class="helperDataSection">
+              <li *ngFor="let help of helperData | filter : searchHelper" (click)="helperSelection(help.name)">{{help.name}}</li>
+          </div>
+      </div>
+      <div class="col-sm-6 helperDescriptionTab">
+          <div>Description</div>
+         <div class="helperDescription">{{helperDescription}}</div>
+      </div>
+    </div>
+</div>
+<div *ngIf="mnemonicsTab">
+<div class="row">
+  <div class="col-sm-6">
+      <div>
+        <input class="mnemonicsRadioSelection" [(ngModel)]="changeData" (click)="mnemonicsTabSelection('allData')" value="allData" type="radio">All &nbsp;&nbsp;
+        <input class="mnemonicsRadioSelection" [(ngModel)]="changeData" (click)="mnemonicsTabSelection('dateData')" type="radio" value="dateData">Date &nbsp;&nbsp;
+        <input class="mnemonicsRadioSelection" [(ngModel)]="changeData" (click)="mnemonicsTabSelection('globalData')" type="radio" value="globalData">Global &nbsp;&nbsp;
+      </div>
+      <input class="helperSearch" [(ngModel)]="searchMnemonics" placeholder="Type to Filter">
+      <div class="helperDataSection">
+          <li *ngFor="let mnemonics of mnemonicsFilter | filter : searchMnemonics" (click)="mnemonicsSelection(mnemonics.name)">{{mnemonics.name}}</li>
+      </div>
+    </div>
+    <div class="col-sm-6 helperDescriptionTab" *ngIf="mnemonicsSelectedData">
+      <div>Value:{{mnemonicsSelectedData.value}}</div>
+      <div>Description</div>
+      {{mnemonicsSelectedData.description}}
+    </div>
+  </div>
+</div>
+</div>
+
+

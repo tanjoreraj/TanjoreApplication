@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { NgForm, FormsModule, FormControl, FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { MenuItem } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
 import { InterestListsService } from './interestLists.service';
 import { columnDef } from '../../assets/tableconfig/columnDef';
+import { UtilService } from '../shared/utilService';
 
 @Component({
     selector: 'app-interestLists',
@@ -13,7 +14,6 @@ import { columnDef } from '../../assets/tableconfig/columnDef';
 })
 
 export class InterestListsComponent implements OnInit {
-    interestForm: FormGroup;
     interestMainList: any;
     cols: any;
     addNewInterestDialog: boolean = false;
@@ -22,13 +22,26 @@ export class InterestListsComponent implements OnInit {
     interestColumn :any[];
     selectedUserId: any;
     selectedUserDetails: any;
+    popUp:boolean = false;
+    removeClass: any;
+    addClass: any;
+    //allMediaForm: FormGroup;
+    @ViewChild('scheduleTrigger') homeId: ElementRef;
 
     constructor(private interestService: InterestListsService,
-        private _formBuilder: FormBuilder) {}
+        private _formBuilder: FormBuilder,
+    private _util: UtilService) {}
+
+    edit() {
+        console.log("hi");
+        let el: HTMLElement = this.homeId.nativeElement as HTMLElement;
+        el.click();
+        this.popUp = true;
+    }
 
     ngOnInit(){
-        this.getInterestList();
-        this.createInterestForm();
+        //this.getInterestList();
+        //this.createInterestForm();
         this.cols = columnDef.interestListsColumnDef;
     }
 
@@ -36,6 +49,7 @@ export class InterestListsComponent implements OnInit {
         this.newInterest = true;
         this.addNewInterestDialog = true;
     }
+  
 
     /*save() {
         let cars = [...this.cars];
@@ -57,7 +71,7 @@ export class InterestListsComponent implements OnInit {
      //   this.addNewInterestDialog = false;
     //}
 
-    onRowSelect(event) {
+    /*onRowSelect(event) {
         console.log(event);
         this.newInterest = false;
         this.interest = this.cloneInterestColumn(event.data);
@@ -75,7 +89,7 @@ export class InterestListsComponent implements OnInit {
         });
     }
 
-    /*onRowSelect(event) {
+    onRowSelect(event) {
         this.newInterest = false;
         this.car = this.cloneCar(event.data);
         this.addNewInterestDialog = true;
@@ -87,7 +101,7 @@ export class InterestListsComponent implements OnInit {
             car[prop] = c[prop];
         }
         return car;
-    }*/
+    }
 
     getInterestList() {
         this.interestService.getInterestList().subscribe(value => {
@@ -133,5 +147,5 @@ export class InterestListsComponent implements OnInit {
                 this.getInterestList();
             }
         });
-    }
+    }*/
 }

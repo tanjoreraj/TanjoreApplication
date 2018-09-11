@@ -1,0 +1,251 @@
+<form class="form-horizontal" #cronBuilderForm="ngForm" (ngSubmit)="onFormSubmit(cronBuilderForm)">
+    <div class="form-group">
+      <div class="col-xs-12">
+        <ul class="nav nav-tabs">
+          <li id="firstTab" class="nav-link active"><a data-toggle="tab" href="#minutes" (click)="cronTabClick('minutes')" >Minutes</a></li>
+          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#hourly" (click)="cronTabClick('hourly')">Hourly</a></li>
+          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#daily" (click)="cronTabClick('weekly')">Daily</a></li>
+          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#weekly" (click)="cronTabClick('daily')">Weekly</a></li>
+          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#monthly" (click)="cronTabClick('monthly')">Monthly</a></li>
+          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#yearly" (click)="cronTabClick('yearly')">Yearly</a></li>
+<!-- 								<li><a data-toggle="tab" data-target="#custom" ng-click="cronTabClick('custom')">Custom</a></li> -->
+        </ul>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="tab-content">
+          <div id="minutes" class="tab-pane in active">
+            <span class="col-xs-12">
+              Every&nbsp;
+              <input type="number" mandatory
+              min="{{INTERVAL_MIN_MINUTES}}" max="{{INTERVAL_MAX_MINUTES}}"
+                   id="dirtyCronMinute" name="dirtyCronMinute" ngModel/>
+              &nbsp;minute(s)&nbsp;
+              <span class="numbers-validate-msg"></span>
+            </span>
+        </div>
+
+    <div id="hourly" class="tab-pane">
+        <span class="col-xs-12">
+          Every&nbsp;
+          <input type="number" autocomplete="off" mandatory
+               min="{{INTERVAL_MIN_HOURLY}}" max="{{INTERVAL_MAX_HOURLY}}"
+               id="dirtyCronHour" name="dirtyCronHour" ngModel/>
+          &nbsp;hour(s)&nbsp;
+          <span class="numbers-validate-msg"></span>
+        </span>
+        <span class="col-xs-12">
+          At minute&nbsp;
+          <input type="number" autocomplete="off" mandatory
+               min="{{TIME_MIN_MINUTE}}" max="{{TIME_MAX_MINUTE}}"
+               id="dirtyCronHourMin" name="dirtyCronHourMin" ngModel/>&nbsp;
+          <span class="numbers-validate-msg"></span>
+        </span>
+      </div>
+
+      <div id="daily" class="tab-pane">
+          <span class="col-xs-12">
+            Every&nbsp;
+          <input type="number" autocomplete="off" mandatory
+               min="{{INTERVAL_MIN_DAILY}}" max="{{INTERVAL_MAX_DAILY}}"
+               id="dirtyCronDailyDay" name="dirtyCronDailyDay" ngModel/>
+          &nbsp;day(s)&nbsp;
+          <span class="numbers-validate-msg"></span>
+        </span>
+        <span class="col-xs-12">
+          At time&nbsp;
+          <span>
+            <input type="number" autocomplete="off" mandatory
+                 min="{{TIME_MIN_HOUR}}" max="{{TIME_MAX_HOUR}}"
+                 id="dirtyCronDailyTime1" name="dirtyCronDailyTime1" ngModel/>&nbsp;
+            <span class="numbers-validate-msg"></span>
+          </span>
+          <span>
+            <input type="number" autocomplete="off" mandatory
+                 min="{{TIME_MIN_MINUTE}}" max="{{TIME_MAX_MINUTE}}"
+                 id="dirtyCronDailyTime2" name="dirtyCronDailyTime2" ngModel/>&nbsp;
+            <span class="numbers-validate-msg"></span>
+          </span>
+        </span>
+      </div>
+
+      <div id="weekly" class="tab-pane">
+          <span class="col-xs-12">
+              <span class="checkbox cronWeeklyBox" *ngFor="let day of DAYS">
+              <label>
+                <input type="checkbox" id="dirtyCronWeeklyBox" name="dirtyCronWeeklyBox" ngModel value="{{day}}"/> {{day}}
+              </label>
+            </span>
+          </span>
+          <span class="col-xs-12">
+            At time&nbsp;
+            <span>
+              <input type="number" autocomplete="off" mandatory
+                   min="{{TIME_MIN_HOUR}}" max="{{TIME_MAX_HOUR}}"
+                   id="dirtyCronWeeklyTime1" name="dirtyCronWeeklyTime1" ngModel/>&nbsp;
+              <span class="numbers-validate-msg"></span>
+            </span>
+            <span>
+              <input type="number" autocomplete="off" mandatory
+                   min="{{TIME_MIN_MINUTE}}" max="{{TIME_MAX_MINUTE}}"
+                   id="dirtyCronWeeklyTime2" name="dirtyCronWeeklyTime2" ngModel/>&nbsp;
+              <span class="numbers-validate-msg"></span>
+            </span>
+          </span>
+        </div>
+
+        <div id="monthly" class="tab-pane">
+            <span class="col-xs-12">
+              Every&nbsp;
+            <input type="number" autocomplete="off" mandatory
+                 min="{{INTERVAL_MIN_MONTHLY}}" max="{{INTERVAL_MAX_MONTHLY}}"
+                 id="dirtyCronMonthlyMonth" name="dirtyCronMonthlyMonth" ngModel/>
+            &nbsp;month(s)&nbsp;
+            <span class="numbers-validate-msg"></span>
+          </span>
+          <span class="col-xs-12">
+            <span class="radio">
+              <label>
+                <input type="radio" id="dirtyCronMonthlyRadio" name="dirtyCronMonthlyRadio" ngModel value="default">
+                On day&nbsp;
+              </label>
+              <input type="number" autocomplete="off" mandatory
+                   min="{{TIME_MIN_DAY}}" max="{{TIME_MAX_DAY}}"
+                   id="dirtyCronMonthlyDay" name="dirtyCronMonthlyDay" ngModel />&nbsp;
+              <span class="numbers-validate-msg"></span>
+            </span>
+          </span>
+          <span class="col-xs-12">
+            <span class="radio">
+              <label>
+                <input type="radio" id="dirtyCronMonthlyOn" name="dirtyCronMonthlyOn" ngModel value="rank">
+                On the&nbsp;
+              </label>
+              <div>
+                <select id="dirtyCronMonthlyDropRank" name="dirtyCronMonthlyDropRank" ngModel>
+                  <option *ngFor="let rank of RANKS">{{rank}}</option>
+                </select>&nbsp;
+              </div>
+              <div>
+              <select id="dirtyCronMonthlyDropDay" name="dirtyCronMonthlyDropDay" ngModel>
+                  <option *ngFor="let day of DAYS">{{day}}</option>
+              </select>&nbsp;
+              </div>
+              <span class="numbers-validate-msg"></span>
+            </span>
+          </span>
+          <span class="col-xs-12">
+            At time&nbsp;
+            <span>
+              <input type="number" autocomplete="off" mandatory
+                   min="{{TIME_MIN_HOUR}}" max="{{TIME_MAX_HOUR}}"
+                   id="dirtyCronMonthlyTime1" name="dirtyCronMonthlyTime1" ngModel/>&nbsp;
+              <span class="numbers-validate-msg"></span>
+            </span>
+            <span>
+              <input type="number" autocomplete="off" mandatory
+                   min="{{TIME_MIN_MINUTE}}" max="{{TIME_MAX_MINUTE}}"
+                   id="dirtyCronMonthlyTime2" name="dirtyCronMonthlyTime2" ngModel/>&nbsp;
+              <span class="numbers-validate-msg"></span>
+            </span>
+          </span>
+        </div>
+        <div id="yearly" class="tab-pane">
+            <span class="col-xs-12">
+              Every year in&nbsp;
+              <select id="dirtyCronYearlyDropMonth" name="dirtyCronYearlyDropMonth" ngModel>
+                  <option *ngFor="let month of MONTHS">{{month}}</option>
+              </select>&nbsp;
+          </span>
+          <span class="col-xs-12">
+            <span class="radio">
+              <label>
+                <input type="radio" id="dirtyCronYearlyRadio" name="dirtyCronYearlyRadio" ngModel value="default">
+                On day&nbsp;
+              </label>
+              <input type="number" autocomplete="off" mandatory
+                   min="{{TIME_MIN_DAY}}" max="{{TIME_MAX_DAY}}"
+                   id="dirtyCronYearlyDay" name="dirtyCronYearlyDay" ngModel />&nbsp;
+              <span class="numbers-validate-msg"></span>
+            </span>
+          </span>
+          <span class="col-xs-12">
+            <span class="radio">
+              <label>
+                <input type="radio"  id="dirtyCronYearlyOn" name="dirtyCronYearlyOn" ngModel value="rank">
+                On the&nbsp;
+              </label>
+              <select id="dirtyCronYearlyDropRank" name="dirtyCronYearlyDropRank" ngModel>
+                  <option *ngFor="let rank of RANKS">{{rank}}</option>
+              </select>&nbsp;
+              <select id="dirtyCronYearlyDropDay" name="dirtyCronYearlyDropDay" ngModel>
+                  <option *ngFor="let day of DAYS">{{day}}</option>
+              </select>&nbsp;
+              <span class="numbers-validate-msg"></span>
+            </span>
+          </span>
+          <span class="col-xs-12">
+            At time&nbsp;
+            <span>
+              <input type="number" autocomplete="off" mandatory
+                   min="{{TIME_MIN_HOUR}}" max="{{TIME_MAX_HOUR}}"
+                   id="dirtyCronYearlyTime1" name="dirtyCronYearlyTime1" ngModel/>&nbsp;
+              <span class="numbers-validate-msg"></span>
+            </span>
+            <span>
+              <input type="number" autocomplete="off" mandatory
+                   min="{{TIME_MIN_MINUTE}}" max="{{TIME_MAX_MINUTE}}"
+                   id="dirtyCronYearlyTime2" name="dirtyCronYearlyTime2" ngModel/>&nbsp;
+              <span class="numbers-validate-msg"></span>
+            </span>
+          </span>
+        </div>
+        <!--<div id="custom" class="tab-pane tab-custom">
+          <label class="col-xs-12 col-sm-2">Expression</label>
+          <span class="col-xs-12 col-sm-10">
+            <span class="col-xs-2"><input type="text" autocomplete="off" mandatory [(ngModel)]="dirtyCron.exp1" /></span>
+            <span class="col-xs-2"><input type="text" autocomplete="off" mandatory [(ngModel)]="dirtyCron.exp2" /></span>
+            <span class="col-xs-2"><input type="text" autocomplete="off" mandatory [(ngModel)]="dirtyCron.exp3" /></span>
+            <span class="col-xs-2"><input type="text" autocomplete="off" mandatory [(ngModel)]="dirtyCron.exp4" /></span>
+            <span class="col-xs-2"><input type="text" autocomplete="off" mandatory [(ngModel)]="dirtyCron.exp5" /></span>
+            <span class="col-xs-2 padding-0"><input type="text" autocomplete="off" mandatory [(ngModel)]="dirtyCron.exp6" /></span>
+            <span>
+              <span class="col-xs-2">secs</span>
+              <span class="col-xs-2">mins</span>
+              <span class="col-xs-2">hours</span>
+              <span class="col-xs-2">DOM</span>
+              <span class="col-xs-2">month</span>
+              <span class="col-xs-2 padding-0">DOW</span>
+            </span>
+          </span>
+        </div>-->
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-xs-4 pull-right">
+        <button type="submit" value="submit" class="btn-purple">Generate Cron</button>
+        <div class="validate-msg" ng-show="cronValidateMsg!=null">{{cronValidateMsg}}</div>
+      </div>
+    </div>
+    <div *ngIf="cronResults">
+      <div class="form-group">
+        <label class="col-xs-3">Expression</label>
+        <span class="col-xs-9" ng-class="{'color-error':cronResults.valid===false}"></span>
+      </div>
+      <div class="form-group">
+        <label class="col-xs-3">Description</label>
+        <span class="col-xs-9" ng-class="{'color-error':cronResults.valid===false}"></span>
+      </div>
+      <div class="form-group">
+        <label class="col-xs-3 next-dates-group">Next Dates</label>
+        <span ng-repeat="cr in cronResults.nextDates">
+          <span class="col-xs-9" ng-class="{'col-xs-offset-3':$first!==true}"></span>
+        </span>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary btn-md btn-blue" ng-click="okCronBuilderModal(cronResults)" ng-disabled="cronResults==null">OK</button>
+      <button type="button" class="btn btn-default btn-md btn-gray" ng-click="cancelCronBuilderModal()">Cancel</button>
+      <div class="validate-msg" ng-show="fact.validateMsg!=null">{{fact.validateMsg}}</div>
+    </div>
+  </form>
