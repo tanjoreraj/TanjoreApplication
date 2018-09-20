@@ -243,5 +243,21 @@ export const columnDef = {
                 "description": "data100"
             }
         ]
-    }]
+    }],
+    sqlButtons: [{value:"SELECT",name:"SELECT"},
+    {value:"JOIN",name:"JOIN"},
+    {value:"LEFT",name:"LEFT"},
+    {value:"RIGHT",name:"RIGHT"},
+    {value:"FULL",name:"FULL"},
+    {value:"+",name:"plus(+)"},
+    {value:"-",name:"minus(-)"},
+    {value:"||",name:"concat(||)"},
+    {value:"IS NULL",name:"IS NULL"},
+    {value:"IS NOT NULL",name:"IS NOT NULL"},
+    {value:"^",name:"XOR(^)"},
+    {value:"==",name:"=="},
+    {value:"<>",name:"<>"},
+    {value:"!=",name:"!="},
+    {value:">",name:">"},
+    {value:"<",name:"<"}]
 };

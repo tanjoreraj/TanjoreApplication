@@ -1,80 +1,124 @@
-<div class="container">
-  <div class="row">
-    <div class="col-sm-4">
-      <div class="sqlSidebar">
-        <ngTree [treeData]="treeData" [treeConfig]="treeConfig"></ngTree>
-      </div>
-    </div>
-    <div class="col-sm-8">
-      <div class="sqlTextarea">
-        <textarea rows="10" [(ngModel)]="sqlQuery" placeholder="Enter SQL Here">{{sqlQuery}}</textarea>
-      </div>
-      <div class="sqlButtons">
-        <button type="button" class="btn btn-sm" (click)="addQuery('SELECT')">SELECT</button>
-        <button type="button" class="btn btn-sm" (click)="addQuery('JOIN')">JOIN</button>
-        <button type="button" class="btn btn-sm" (click)="addQuery('LEFT')">LEFT</button>
-        <button type="button" class="btn btn-sm" (click)="addQuery('RIGHT')">RIGHT</button>
-        <button type="button" class="btn btn-sm" (click)="addQuery('FULL')">FULL</button>
-        <button type="button" class="btn btn-sm" (click)="addQuery('+')">plus(+)</button>
-        <button type="button" class="btn btn-sm" (click)="addQuery('-')">minus(-)</button>
-        <button type="button" class="btn btn-sm" (click)="addQuery('||')">concat(||)</button>
-        <button type="button" class="btn btn-sm" (click)="addQuery('IS NULL')">IS NULL</button>
-        <button type="button" class="btn btn-sm" (click)="addQuery('IS NOT NULL')">IS NOT NULL</button>
-        <button type="button" class="btn btn-sm" (click)="addQuery('^')">XOR(^)</button>
-        <button type="button" class="btn btn-sm" (click)="addQuery('==')">==</button>
-        <button type="button" class="btn btn-sm" (click)="addQuery('<>')"><></button>
-        <button type="button" class="btn btn-sm" (click)="addQuery('!=')">!=</button>
-        <button type="button" class="btn btn-sm" (click)="addQuery('>')">></button>
-        <button type="button" class="btn btn-sm" (click)="addQuery('<')"><</button>
-      </div>
-    </div>
-  
-    <div class="sqlFooterButtons">
-      <div class="float-left sqlFooter">
-        <button type="button" class="btn btn-primary btn-sm" (click)="helperQuery()">Helper F(x)</button>
-        <button type="button" class="btn btn-primary btn-sm" (click)="mnemonicsQuery()">Mnemonics</button>
-      </div>
-      <div class="float-right sqlFooter">
-        <button type="button" class="btn bg-purple btn-sm" (click)="clearQuery()">Clear SQL</button>
-        <button type="button" class="btn bg-purple btn-sm" (click)="validateQuery(sqlQuery)">Validate SQL</button>
-      </div>
-    </div>
-  </div>
-    <hr>
-  <div *ngIf="helperTab">
-    <div class="row">
-      <div class="col-sm-6">
-          <input class="helperSearch" [(ngModel)]="searchHelper" placeholder="Type to Filter">
-          <div class="helperDataSection">
-              <li *ngFor="let help of helperData | filter : searchHelper" (click)="helperSelection(help.name)">{{help.name}}</li>
-          </div>
-      </div>
-      <div class="col-sm-6 helperDescriptionTab">
-          <div>Description</div>
-         <div class="helperDescription">{{helperDescription}}</div>
-      </div>
+<div class="modal fade sql-builder" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="sqlBuilderModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">SQL Query Builder</h5>
+                <button type="button" class="close color-white" data-dismiss="modal" (click)="closeSqlBuilder()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="col-lg-12 px-4">
+                        <div class="container-fluid p-0">
+                            <div class="row">
+                              <div class="col-sm-3 pr-0-sm">
+                              <div class="buildquery-tree-grid">
+                                <ngTree [treeData]="treeData" [treeConfig]="treeConfig"></ngTree>
+                              </div>
+                              </div>
+                              <div class="col-xs-12 col-sm-9">
+                                  <textarea class="form-control" autocorrect="off" autocapitalize="off" spellcheck="false" rows="10" [(ngModel)]="sqlQuery" placeholder="Enter SQL Here">{{sqlQuery}}</textarea>    
+                                  <br>
+                                  <button *ngFor="let sqlBtn of sqlBtns" class="btn-lightgray col-xs-4 col-sm-3" (click)="addQuery(sqlBtn.value)" type="button">{{sqlBtn.name}}</button>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 px-4">
+                        <div class="container-fluid p-0">
+                        <div class="row">
+                        <div class="col-sm-6">
+                            <div class="col-sm-6 pt-2 sqlHiddenTabs sqlHelperTab">
+                                <button class="btn-blue w-100" type="button" (click)="helperQuery()">Helper F(x)</button>
+                                </div>
+                                <div class="col-sm-6 pt-2 sqlHiddenTabs">
+                                <button class="btn-blue w-100" type="button" (click)="mnemonicsQuery()">Mnemonics</button>
+                            </div>
+                        </div>
+                  
+                        <div class="col-xs-12 col-sm-6 pt-2">
+                            <div class="float-right">
+                                <button class="btn-purple" type="button" (click)="clearQuery()" [ngClass]="{disabled : sqlQuery === ''}">Clear SQL</button>
+                                <button class="btn-purple ml-2" type="button" (click)="validateQuery(sqlQuery)">Validate SQL</button>
+                            </div>
+                        </div>
+                      </div>
+                        </div>
+                    </div>
+                
+                    <div *ngIf="mainTab" class="col-xs-12 pt-2 px-4">
+                        <div *ngIf="helperTab">
+                            <hr class="custom-hr">
+                            <div class="row pl-3 pr-3">
+                                <div class="col-sm-5 pr-0-sm">
+                                    <input class="form-control" type="text" [(ngModel)]="searchHelper" placeholder="Type to filter">
+                                </div>
+                                <div class="col-xs-12 col-sm-9"></div>
+                            </div>
+                            <div class="row pl-3 pr-3">
+                                <div class="col-sm-5 pr-0-sm helperSection">
+                                    <div class="pl-3 helperMnemonicsNames">
+                                        <div class="option-border-bottom" *ngFor="let help of helperData | filter : searchHelper" (click)="helperSelection(help.name)">{{help.name}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-7 helperSection">
+                                    <label>Description: &nbsp;</label>
+                                    <div>{{helperDescription}}</div>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                
+                            <div *ngIf="mnemonicsTab">
+                                <hr class="custom-hr">
+                                <div class="row pl-4 pr-3">
+                                    <div class="col-xs-12 pr-0-sm radio">
+                                        <label class="radio-inline mr-2">
+                                            <input type="radio" name="optionsRadios" [(ngModel)]="changeData" (click)="mnemonicsTabSelection('allData')" value="allData"> All
+                                        </label>
+                                        <label class="radio-inline mr-2">
+                                            <input type="radio" name="optionsRadios" [(ngModel)]="changeData" (click)="mnemonicsTabSelection('dateData')" value="dateData"> Date
+                                        </label>
+                                        <label class="radio-inline mr-2">
+                                            <input type="radio" name="optionsRadios" [(ngModel)]="changeData" (click)="mnemonicsTabSelection('globalData')" value="globalData"> Global
+                                        </label>
+                                    </div>
+                                </div>
+                    
+                                <div class="row pl-2 pr-3">
+                                    <div class="col-sm-5 pr-0-sm">
+                                        <input class="form-control" type="text" [(ngModel)]="searchMnemonics" placeholder="Type to Filter">
+                                    </div>
+                                    <div class="col-xs-12 col-sm-9"></div>
+                                </div>
+                                <div class="row pl-2 pr-3">
+                                    <div class="col-sm-5 clearfix helperSection">
+                                        <div class="pl-3 helperMnemonicsNames">
+                                            <div class="option-border-bottom" *ngFor="let mnemonics of mnemonicsFilter | filter : searchMnemonics" (click)="mnemonicsSelection(mnemonics.name)">{{mnemonics.name}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-7 helperSection" *ngIf="mnemonicsSelectedData">
+                                       <!-- <span ng-if="mnemonicType == 'DATE'" class="ng-binding ng-scope"><label>Value: &nbsp;</label>to_date(now())</span>
+                                        <br>
+                                        <label>Description: &nbsp;</label>
+                                        <div class="ng-binding">Current business day</div>
+                                        <br>
+                                       </div>-->
+                                       <span><label>Value: &nbsp;</label>{{mnemonicsSelectedData.value}}</span>
+                                        <br>
+                                        <label>Description: &nbsp;</label>
+                                        <div>{{mnemonicsSelectedData.description}}</div>
+                                        <br>
+                                       </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+            </div>
+        </div>
     </div>
 </div>
-<div *ngIf="mnemonicsTab">
-<div class="row">
-  <div class="col-sm-6">
-      <div>
-        <input class="mnemonicsRadioSelection" [(ngModel)]="changeData" (click)="mnemonicsTabSelection('allData')" value="allData" type="radio">All &nbsp;&nbsp;
-        <input class="mnemonicsRadioSelection" [(ngModel)]="changeData" (click)="mnemonicsTabSelection('dateData')" type="radio" value="dateData">Date &nbsp;&nbsp;
-        <input class="mnemonicsRadioSelection" [(ngModel)]="changeData" (click)="mnemonicsTabSelection('globalData')" type="radio" value="globalData">Global &nbsp;&nbsp;
-      </div>
-      <input class="helperSearch" [(ngModel)]="searchMnemonics" placeholder="Type to Filter">
-      <div class="helperDataSection">
-          <li *ngFor="let mnemonics of mnemonicsFilter | filter : searchMnemonics" (click)="mnemonicsSelection(mnemonics.name)">{{mnemonics.name}}</li>
-      </div>
-    </div>
-    <div class="col-sm-6 helperDescriptionTab" *ngIf="mnemonicsSelectedData">
-      <div>Value:{{mnemonicsSelectedData.value}}</div>
-      <div>Description</div>
-      {{mnemonicsSelectedData.description}}
-    </div>
-  </div>
-</div>
-</div>
+
+
 
 

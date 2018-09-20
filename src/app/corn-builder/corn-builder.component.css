@@ -1,0 +1,33 @@
+.btn-grey {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+    padding: 4px 8px;
+}
+
+.add-cornBuilder input[type="checkbox"]{
+    width: 15px;
+    height: 15px;
+  }
+
+  .cornSelect {
+      width: 100%;
+  }
+
+  .btn-blue:disabled {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+    cursor: not-allowed;
+    box-shadow: none;
+    opacity: .65;
+  }
+
+  .cornError {
+      color: red;
+  }
+
+   .cronTabHeader {
+    color: #650360 !important;
+    font-weight: bold !important;
+  }

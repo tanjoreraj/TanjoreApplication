@@ -21,6 +21,8 @@ import { CornBuilderComponent } from './corn-builder/corn-builder.component';
 import { ManualTriggerComponent } from './manual-trigger/manual-trigger.component';
 import { SqlBuilderComponent } from './sql-builder/sql-builder.component';
 import { FilterPipe } from './shared/searchFilter';
+import { TriggeraddComponent } from './triggeradd/triggeradd.component';
+import { DynamicFormsPageComponent } from './dynamic-forms-page/dynamic-forms-page.component';
 
 
 @NgModule({
@@ -34,7 +36,9 @@ import { FilterPipe } from './shared/searchFilter';
     ManualTriggerComponent,
     SqlBuilderComponent,
     FilterPipe,
-    NgTree
+    NgTree,
+    TriggeraddComponent,
+    DynamicFormsPageComponent
   ],
   imports: [
     BrowserModule,
@@ -44,6 +48,7 @@ import { FilterPipe } from './shared/searchFilter';
     DialogModule,
     BrowserAnimationsModule,
     FormsModule,
+    NgSelectModule,
     NgSelectModule
     //AppRoutingModule
   ],

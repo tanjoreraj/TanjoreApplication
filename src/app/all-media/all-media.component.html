@@ -39,7 +39,7 @@
         bindValue="value"
         labelForId="age"
         placeholder="No User Profile selecteded"
-        formControlName="userGroup">
+        formControlName="userGroup" [multiple]="true">
         </ng-select>
     </div>
   </div>
@@ -216,3 +216,7 @@
   <app-modalPopup *ngIf="showPopUp"></app-modalPopup>
 </div>
 </div>
+<button class="btn btn-xs btn-primary float-right" style="border-radius: 20px;" data-toggle="modal" data-target=".add-trigger-form-modal">+ Add</button>
+<button class="btn btn-xs btn-primary float-right" style="border-radius: 20px;" data-toggle="modal" data-target=".add-cornBuilder">+ open</button>
+<app-triggeradd></app-triggeradd>
+<app-corn-builder></app-corn-builder>

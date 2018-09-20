@@ -22,6 +22,10 @@ export class SqlBuilderComponent implements OnInit, OnDestroy {
   mnemonicsFilter: any;
   mnemonicsSelectedData: any;
   changeData :any;
+  sqlBtns = columnDef.sqlButtons;
+  mainTab: boolean;
+
+
 
 public treeConfig : any = {
     dataMap:{
@@ -36,6 +40,9 @@ public treeConfig : any = {
     this.queryArray = [];
     this.mnemonicsFilter = this.mnemonicsData[0]['allData'];
     this.changeData = 'allData';
+    this.mainTab = false;
+    this.helperTab = false;
+    this.mnemonicsTab = false;
   }
 
   addQuery(value) {
@@ -45,11 +52,13 @@ public treeConfig : any = {
   }
 
   helperQuery() {
+    this.mainTab = true;
     this.helperTab = !this.helperTab;
     this.mnemonicsTab = false;
   }
 
   mnemonicsQuery() {
+    this.mainTab = true;
     this.mnemonicsTab = !this.mnemonicsTab;
     this.helperTab = false;
   }
@@ -76,10 +85,11 @@ public treeConfig : any = {
   clearQuery() {
     console.log("clear");
     this.sqlQuery = null;
+    this.queryArray.length = 0;
   }
 
   ngOnDestroy() {
-
+    console.log('destroy');
   }
 
 }
