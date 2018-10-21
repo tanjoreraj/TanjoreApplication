@@ -12,7 +12,7 @@
                             <div class="row">
                               <div class="col-sm-3 pr-0-sm">
                               <div class="buildquery-tree-grid">
-                                <ngTree [treeData]="treeData" [treeConfig]="treeConfig"></ngTree>
+                                <ngTree [treeData]="treeData" (click)="searchNodes($event)" [treeConfig]="treeConfig"></ngTree>
                               </div>
                               </div>
                               <div class="col-xs-12 col-sm-9">
@@ -28,25 +28,134 @@
                         <div class="row">
                         <div class="col-sm-6">
                             <div class="col-sm-6 pt-2 sqlHiddenTabs sqlHelperTab">
-                                <button class="btn-blue w-100" type="button" (click)="helperQuery()">Helper F(x)</button>
+                                <button class="btn-blue w-100" type="button" data-toggle="collapse" data-target="#helperFx" (click)="helperQuery()">Helper F(x)</button>
                                 </div>
                                 <div class="col-sm-6 pt-2 sqlHiddenTabs">
-                                <button class="btn-blue w-100" type="button" (click)="mnemonicsQuery()">Mnemonics</button>
+                                <button class="btn-blue w-100" type="button" data-toggle="collapse" data-target="#mnemonicCollapse" (click)="mnemonicsQuery()">Mnemonics</button>
                             </div>
                         </div>
                   
                         <div class="col-xs-12 col-sm-6 pt-2">
                             <div class="float-right">
                                 <button class="btn-purple" type="button" (click)="clearQuery()" [ngClass]="{disabled : sqlQuery === ''}">Clear SQL</button>
-                                <button class="btn-purple ml-2" type="button" (click)="validateQuery(sqlQuery)">Validate SQL</button>
+                                <button *ngIf="!showSave" class="btn-purple ml-2" type="button" (click)="validateQuery(sqlQuery)">Validate SQL</button>
+                                <button *ngIf="showSave" class="btn-purple ml-2" type="button" (click)="validateQuery(sqlQuery)">Validate SQL</button>
                             </div>
                         </div>
                       </div>
                         </div>
                     </div>
+
+
+
+
+
+
+                   <!-- <div class="col-xs-12 padding-top-7">
+                        <div class="collapse" id="helperFx">
+                            <hr class="custom-hr"/>
+                            <div class="row padding-left-15 padding-right-15">
+                            <div class="col-sm-5 padding-right-0-sm">
+                                <input class="form-control" type="text" ng-model="helperSearchFilter" placeholder="Type to filter"/>
+                            </div>
+                            <div class="col-xs-12 col-sm-9"></div>
+                            </div>
+                            <div class="row padding-left-15 padding-right-15">
+                            <div class="col-sm-5 padding-right-0-sm" style="max-height: 200px; overflow-y: auto; overflow-x: hidden;">
+                                <!--<select multiple style="width:100%;height:170px;">
+                                    <option value="{{function.description}}" on-long-press="queryBuilderOnBtnClick(function.name, $event)" 
+                                        ng-dblclick="queryBuilderOnBtnClick(function.name, $event)" ng-click="helperTextSelected(function)" 
+                                        ng-repeat="function in engineFunctions | filter: helperSearchFilter" ng-selected="$index == 0">{{function.name}}</option>
+                                </select>
+                                <div class="padding-left-15" style="background: #FFFFFF;">
+                                   <div id="helper_{{$index}}" class="option-border-bottom" style="cursor:pointer" 
+                                        
+                                        value="{{function.description}}" on-long-press="queryBuilderOnBtnClick(function.name, $event)" 
+                                        ng-dblclick="queryBuilderOnBtnClick(function.name, $event)" ng-click="helperTextSelected(function, $index)" 
+                                        ng-repeat="function in engineFunctions | filter: helperSearchFilter" ng-selected="$index == 0">{{function.name}}</div>  
+                                </div>
+        
+        
+                            </div>
+                            <div class="col-xs-12 col-sm-7" style="max-height: 200px; overflow-y: auto; overflow-x: hidden;">
+                                <label>Description </label>
+                                <div>{{helperTextDescription}}</div>
+                                <br />
+                                <!--
+                                <label>Sample </label>
+                                <div>LOWER(val)</div>
+                            </div>
+                            <!--<div class="col-xs-12 col-sm-9" style="padding-top:7px;">
+                                <div class="pull-right">
+                                    <button class="btn-blue" ng-click="queryBuilderOnBtnClick(helperText)" type="button">Select</button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="collapse" id="mnemonicCollapse">
+                            <hr class="custom-hr"/>
+                            
+                            <div class="row padding-left-15 padding-right-15">
+                                <div class="col-xs-12 padding-right-0-sm radio">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="" ng-model="radioMnemonicSelection" checked>
+                                        All
+                                      </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="DATE" ng-model="radioMnemonicSelection">
+                                        Date
+                                      </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="optionsRadios" id="optionsRadios3" value="GLOBAL" ng-model="radioMnemonicSelection">
+                                        Global
+                                      </label>
+                                </div>
+                            </div>
+                            
+                            <div class="row padding-left-15 padding-right-15">
+                                <div class="col-sm-5 padding-right-0-sm">
+                                    <input class="form-control" type="text" ng-model="mnemonicSearchFilter" placeholder="Type to filter"/>
+                                </div>
+                                <div class="col-xs-12 col-sm-9"></div>
+                            </div>
+                            <div class="row padding-left-15 padding-right-15">
+                            <div class="col-sm-5 clearfix" style="max-height: 200px; overflow-y: auto; overflow-x: hidden;">
+                                <div class="padding-left-15" style="background: #FFFFFF;">
+                                    <div id="mnemonic_{{$index}}" style="cursor:pointer"  class="option-border-bottom" value="{{mnemonic.description}}" on-long-press="queryBuilderOnBtnClick('[[' + mnemonic.name + ']]', $event);addMnemonicsToRule(mnemonic)" 
+                                        ng-dblclick="queryBuilderOnBtnClick('[[' + mnemonic.name + ']]', $event);addMnemonicsToRule(mnemonic)" 
+                                        ng-click="mnemonicTextSelected(mnemonic, $index)" 
+                                        ng-repeat="mnemonic in mnemonics | filter:{type: radioMnemonicSelection} | filter: mnemonicSearchFilter" ng-selected="$index == 0">{{mnemonic.name}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-7" style="max-height: 200px; overflow-y: auto; overflow-x: hidden;">
+                                <span ng-if="mnemonicType == 'GLOBAL'"><label>Value: &nbsp;</label>{{mnemonicValue}}</span>
+                                <span ng-if="mnemonicType == 'DATE'"><label>Value: &nbsp;</label>{{mnemonicFunction}}</span>
+                                <br />
+                                <label>Description: &nbsp;</label>
+                                <div>{{mnemonicTextDescription}}</div>
+        
+                                <br />
+                            </div>
+                            </div>
+                        </div>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 
-                    <div *ngIf="mainTab" class="col-xs-12 pt-2 px-4">
-                        <div *ngIf="helperTab">
+                        <div class="collapse" id="helperFx">
                             <hr class="custom-hr">
                             <div class="row pl-3 pr-3">
                                 <div class="col-sm-5 pr-0-sm">
@@ -68,7 +177,7 @@
                             </div>
                         </div>
                 
-                            <div *ngIf="mnemonicsTab">
+                            <div class="collapse" id="mnemonicCollapse">
                                 <hr class="custom-hr">
                                 <div class="row pl-4 pr-3">
                                     <div class="col-xs-12 pr-0-sm radio">
@@ -114,7 +223,6 @@
                                 </div>
                             </div>
                     </div>
-            </div>
         </div>
     </div>
 </div>

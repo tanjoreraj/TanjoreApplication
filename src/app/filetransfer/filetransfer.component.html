@@ -1,0 +1,223 @@
+
+
+
+<!-- <div class="container-fluid p-0">
+        <div class="row">
+          <div class="col-lg-12">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb p-1 pl-3 shadow-sm">
+                <li class="breadcrumb-item" [ngClass]="{'active': add_transfer_form_step === 'transfer_source'}">
+                 Source
+                </li>
+                <li class="breadcrumb-item" [ngClass]="{'active': add_transfer_form_step === 'transfer_destination	'}" *ngIf="add_transfer_form_step == 'transfer_destination	'">Destination	</li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="jumbotron p-4 shadow-sm" [ngSwitch]="add_transfer_form_step">
+              <form id="fileTransferForm" [formGroup]="fileTransferForm" *ngSwitchCase="'transfer_source'" [@addTransferFormStepAnimate]="in" novalidate>
+                <div class="form-group row justify-content-center">
+                  <label for="name" class="col-form-label col-sm-2 required">Name</label>
+                  <div class="col-sm-6" [ngClass]="{'was-validated' : fileTransferForm.controls.name.invalid && (!isfileTransferFormValid || fileTransferForm.controls.name.dirty || fileTransferForm.controls.name.touched)}">
+                    <input type="text" class="form-control" formControlName="name" minlength="3" maxlength="50" placeholder="Transfer Name" [pattern]="noSpecialCharacters" required>
+                    <div *ngIf="fileTransferForm.controls.name.invalid && (!isfileTransferFormValid || fileTransferForm.controls.name.dirty || fileTransferForm.controls.name.touched)"
+                      class="invalid-tooltip">
+                      <span *ngIf="fileTransferForm.controls.name.errors.required">
+                        {{constants.VALIDATION_REQUIRED}}
+                      </span>
+                      <span *ngIf="fileTransferForm.controls.name.errors.minlength">
+                        Minimum Length Should be 3 Characters
+                      </span>
+                      <span *ngIf="fileTransferForm.controls.name.errors.pattern">
+                        No Special Characters Allowed
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row justify-content-center">
+                  <label class="col-form-label col-sm-2 required">User groups</label>
+                  <div class="col-sm-6" [ngClass]="{'was-validated' : fileTransferForm.controls.userGroups.invalid && (!isfileTransferFormValid || fileTransferForm.controls.userGroups.dirty || fileTransferForm.controls.userGroups.touched)}">
+                    <ng-select [items]="userGroupsList" [selectOnTab]="true" bindValue="value" labelForId="age" placeholder="Select a user group"
+                      formControlName="userGroups">
+                    </ng-select>
+                    <input type="text" class="form-control" style="display: none" required>
+                    <div *ngIf="fileTransferForm.controls.userGroups.invalid && (!isfileTransferFormValid || fileTransferForm.controls.userGroups.dirty || fileTransferForm.controls.userGroups.touched)"
+                      class="invalid-tooltip">
+                      <span *ngIf="fileTransferForm.controls.userGroups.errors.required">
+                        {{constants.VALIDATION_REQUIRED}}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row justify-content-center">
+                  <label class="col-form-label col-sm-2">Active</label>
+                  <div class="col-sm-6">
+                    <ui-switch formControlName="isActive"></ui-switch>
+                  </div>
+                </div>
+                <div class="form-group row justify-content-center">
+                  <label class="col-form-label col-sm-2">Description</label>
+                  <div class="col-sm-6">
+                    <textarea rows="5" maxlength="200" class="form-control" formControlName="description" placeholder="Description"></textarea>
+                    <span class="float-right pr-2">{{fileTransferForm.controls.description.value.length}}/200</span>
+                  </div>
+                </div>
+              </form>
+         
+              <div class="row">
+                <div class="col-lg-12">
+                  <hr>
+                  <button type="button" class="btn btn-primary btn-md mr-2 float-right shadow-sm" (click)="transferNextStep()" *ngIf="add_transfer_form_step == 'transfer_source'">Next</button>
+                  <button type="button" class="btn btn-primary btn-md mr-2 float-right shadow-sm" (click)="saveTansfer()" *ngIf="add_transfer_form_step == 'transfer_destination	'">Save</button>
+                  <button type="button" class="btn btn-primary btn-md mr-2 float-right shadow-sm" (click)="transferPreviousStep()" *ngIf="add_transfer_form_step == 'transfer_destination	'">Previous</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+     
+
+
+
+      <div class="container-fluid p-0">
+        <div class="row">
+          <div class="col-lg-12">
+           
+          </div>
+        </div>
+    
+        <div class="row">
+            <div class="col-lg-12">                  
+              <div class="jumbotron p-4">
+                 <div>
+                    <form id="fileTransferForm" [formGroup]="fileTransferForm" class="pl-5 pr-5" novalidate="true">
+                        <div class="form-group form-row justify-content-center">
+                            <label for="name" class="col-form-label col-sm-2 required">Name</label>
+                                <div class="col-sm-6" [ngClass]="{'was-validated' : fileTransferForm.controls.name.invalid && (!isfileTransferFormValid || fileTransferForm.controls.name.dirty || fileTransferForm.controls.name.touched)}">
+                                    <input type="text" class="form-control" formControlName="name" minlength="3" maxlength="50" placeholder="File Transfer Name" [pattern]="noSpecialCharacters" required>
+                                    <div *ngIf="fileTransferForm.controls.name.invalid && (!isfileTransferFormValid || fileTransferForm.controls.name.dirty || fileTransferForm.controls.name.touched)"
+                                    class="invalid-tooltip">
+                                    <span *ngIf="fileTransferForm.controls.name.errors.required">
+                                        {{constants.VALIDATION_REQUIRED}}
+                                    </span>
+                                    <span *ngIf="fileTransferForm.controls.name.errors.minlength">
+                                        Minimum Length Should be 3 Characters
+                                    </span>
+                                    <span *ngIf="fileTransferForm.controls.name.errors.pattern">
+                                        No Special Characters Allowed
+                                    </span>
+                                    </div>
+                                </div>
+                                <i data-toggle="tooltip" title="Hi i am Raj I am getting married to sarika. Happy Married Life Raj and Sarika" class="fa fa-question-circle" aria-hidden="true"></i>
+                            </div>
+    
+                        <div class="form-group form-row justify-content-center">
+                                <label class="col-lg-2 col-form-label required">User groups</label>
+                                    <div class="col-lg-6"  [ngClass]="{'was-validated' : fileTransferForm.controls.userGroups.invalid && (!isfileTransferFormValid || fileTransferForm.controls.userGroups.dirty || fileTransferForm.controls.userGroups.touched)}">
+                                            <ng-select [items]="userGroupsList" [selectOnTab]="true" bindValue="value" labelForId="age" placeholder="Select a user group"
+                                            formControlName="userGroups">
+                                            </ng-select>
+                                        <input type="text" class="form-control" style="display: none" required>
+                                            <div *ngIf="fileTransferForm.controls.userGroups.invalid && (!isfileTransferFormValid || fileTransferForm.controls.userGroups.dirty || fileTransferForm.controls.userGroups.touched)"
+                                            class="invalid-tooltip">
+                                            <span *ngIf="fileTransferForm.controls.userGroups.errors.required">
+                                                {{constants.VALIDATION_REQUIRED}}
+                                            </span>
+                                            </div>
+                                    </div>
+                        </div>
+    
+                        <div class="form-group form-row justify-content-center">
+                            <label for="description" class="col-lg-2 col-form-label">Description</label>
+                                <div class="col-lg-6">
+                                    <textarea rows="5" maxlength="200"  placeholder="Description" class="form-control form-control-sm" formControlName="description"></textarea>
+                                    <span class="float-right pr-2">{{fileTransferForm.controls.description.value?.length}}/200</span>
+                                </div>
+                        </div>
+                        
+                        <hr>
+                                      
+                        <div class="form-group form-row justify-content-center">
+                             <label for="source" class="col-lg-2 col-form-label">Source File Path</label>
+                                <div class="col-lg-6">
+                                    <input type="text" placeholder="Source File Path" class="form-control form-control-sm" formControlName="sourceFilePath" />
+                                </div>
+                        </div>
+                        <div class="form-group form-row justify-content-center">
+                            <label for="destination" class="col-lg-2 col-form-label">Source File Name</label>
+                                <div class="col-lg-6">
+                                    <input type="text" placeholder="Source File Name" class="form-control form-control-sm" formControlName="sourceFileName" />
+                                </div>
+                        </div>
+                        <div class="form-group form-row justify-content-center">
+                            <label for="application" class="col-lg-2 col-form-label">Source File Type</label>
+                                <div class="col-lg-6">
+                                        <ng-select [items]="SourceFileTypeList" [selectOnTab]="true" bindValue="value" labelForId="age" placeholder="Select a Source File Type"
+                                        formControlName="sourceFileType">
+                                        </ng-select>
+                                    <input type="text" class="form-control" style="display: none" required>
+                                </div>
+                               
+                        </div>
+                        <div class="form-group form-row justify-content-center">
+                            <label for="application" class="col-lg-2 col-form-label">Connection Profile</label>
+                                <div class="col-lg-6">
+                                    <input type="text" placeholder="Connection Profile" class="form-control form-control-sm" formControlName="connectionProfile" />
+                                </div>
+                        </div>
+                        <hr>
+                        
+                        <div class="form-group form-row justify-content-center">
+                            <label for="destinationFilePath" class="col-lg-2 col-form-label">Destination File Path</label>
+                                <div class="col-lg-6">
+                                    <input type="text" placeholder="Destination File Path" class="form-control form-control-sm" formControlName="destinationFilePath" />
+                                </div>
+                        </div>
+                        <div class="form-group form-row justify-content-center">
+                            <label for="destinationFileName" class="col-lg-2 col-form-label">Destination File Name</label>
+                                <div class="col-lg-6">
+                                    <input type="text" placeholder="Destination File Name" class="form-control form-control-sm" formControlName="destinationFileName" />
+                                </div>
+                        </div>
+                        <div class="form-group form-row justify-content-center">
+                            <label for="destinationFileType" class="col-lg-2 col-form-label"> Destination File Type</label>
+                            <div class="col-lg-6">
+                                    <ng-select [items]="destinationFileType" [selectOnTab]="true" bindValue="value" labelForId="age" placeholder="Select a Destination File Type"
+                                    formControlName="destinationFileType">
+                                    </ng-select>
+                                <input type="text" class="form-control" style="display: none" required>
+                            </div>
+                        </div>
+                        <div class="form-group form-row justify-content-center">
+                            <label for="archivalPath" class="col-lg-2 col-form-label">Archival Path</label>
+                                <div class="col-lg-6">
+                                    <input type="text" placeholder="Archival Path" class="form-control form-control-sm" formControlName="archivalPath" />
+                                </div>
+                        </div>
+                        <div class="form-group form-row justify-content-center">
+                            <label for="renameConvention" class="col-lg-2 col-form-label">Rename Convention</label>
+                                <div class="col-lg-6">
+                                    <input type="text" placeholder="Rename Convention" class="form-control form-control-sm" formControlName="renameConvention" />
+                                </div>
+                        </div>
+                        <div class="form-group form-row justify-content-center">
+                            <label for="application" class="col-lg-2 col-form-label">Connection Profile</label>
+                                <div class="col-lg-6">
+                                    <input type="text" placeholder="Connection Profile" class="form-control form-control-sm" formControlName="finalConnectionProfile" />
+                                </div>
+                        </div>
+                    </form>
+                        </div>
+                        <hr class="ng-tns-c5-5">
+                        <div class="add-transfer-btns">
+                            <button type="button" class="btn btn-primary btn-md add-btn-pad" (click)="triggerNextStep()">Save</button>
+                            <button type="button" class="btn btn-default btn-md" (click)="resetTransfer()">Cancel</button>
+                        </div>
+              </div>
+            </div>
+        </div>
+    </div> 

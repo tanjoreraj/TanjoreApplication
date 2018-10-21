@@ -71,7 +71,32 @@ function getMockPeople() {
             'gender': 'female',
             'company': 'EXTRAWEAR',
             'email': 'rochelleestes@extrawear.com',
+            'phone': '+1 (849) 408-2029',
+            'children': [{
+                'id': '5a15b13c2340978ec3d2c0ea',
+            'index': 1,
+            'isActive': false,
+            'picture': 'http://placehold.it/32x32',
+            'age': 35,
+            'name': 'Rochelle Estes',
+            'disabled': true,
+            'gender': 'female',
+            'company': 'EXTRAWEAR',
+            'email': 'rochelleestes@extrawear.com',
             'phone': '+1 (849) 408-2029'
+            },{
+                'id': '5a15b13c2340978ec3d2c0ea',
+            'index': 2,
+            'isActive': false,
+            'picture': 'http://placehold.it/32x32',
+            'age': 35,
+            'name': 'Rochelle',
+            'disabled': true,
+            'gender': 'female',
+            'company': 'EXTRAWEAR',
+            'email': 'rochelleestes@extrawear.com',
+            'phone': '+1 (849) 408-2029'
+            }]
         },
         {
             'id': '5a15b13c663ea0af9ad0dae8',

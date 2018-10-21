@@ -1,0 +1,30 @@
+.add-pipeline-btns{
+    margin-right:45px;
+    text-align:right;
+}
+.add-btn-pad{
+    margin-right:10px;
+}
+
+.header-label{
+    background-color: #c1c1c1;
+    font-weight: bold;
+}
+.file-position table {
+    margin-left: 10px;
+}
+.file-value {
+    position: relative;
+    left: 25px;
+}
+.file-delete {
+    position: absolute;
+    right: 5px;
+}
+.file-add{
+    position: relative;
+    right: 0;
+}
+.form-width {
+    width: 100% !important;
+}

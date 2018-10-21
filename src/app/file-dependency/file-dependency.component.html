@@ -1,0 +1,155 @@
+      <div class="container-fluid p-0">
+        <div class="row">
+          <div class="col-lg-12">
+           
+          </div>
+        </div>
+    
+        <div class="row">
+            <div class="col-lg-12">     
+                    <div class="wizard-inner wizard-setup bg-purple text-white p-2 mb-0 ">
+                            <h3 class="text-center">File Transfer Dependency</h3>
+                    </div>             
+              <div class="jumbotron p-4">
+                   
+                 <div>
+                    <form id="fileTransferForm" [formGroup]="fileTransferForm" class="pl-5 pr-5" novalidate="true">
+                        <div class="form-group form-row justify-content-center">
+                           
+                            <div class="row col-md-10 offset-md-2">
+                              <div class="col-md-12 header-label">
+                                <label class="col-md-10">Transfer</label>
+                                <label class="col-md-2">Actions</label>
+                              </div>
+                              <div class="col-md-12 mt-2 form-inline">
+                                  <div class="col-md-10"> 
+                                        <ng-select [items]="transfer" [selectOnTab]="true" bindValue="value" labelForId="age" placeholder="Select a transfer"
+                                        formControlName="transfer">
+                                        </ng-select>
+                                  </div>
+                                <!-- <input type="text" class="form-control col-md-4 fileTriggerKey" formControlName="key"> -->
+                             
+                                <!-- <input type="text" class="form-control col-md-4 fileTriggerValue" formControlName="values"> -->
+                                <button type="button" class="btn btn-success btn-sm ml-3" (click)="add(this.fileTransferForm.controls.transfer.value,'transferName')">Add</button>
+                              </div>
+                            
+                              <div class="container filePosition" *ngIf="transferValueTypes.length > 0">
+                                <table class="table">
+                                  <tbody>
+                                    <tr class="row" *ngFor="let values of transferValueTypes">
+                                      <td class="col-md-9 col-sm-9 col-xs-9 fileValue">{{values}}</td>
+                                      <td class="col-md-2 col-sm-2 col-xs-2 fileDelete"><button type="button" class="btn btn-danger btn-sm " (click)="delete(values,'transferName')">Delete</button></td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                                </div>
+                        </div>
+                        <hr>
+                        <div class="form-group form-row justify-content-center">
+                           
+                                <div class="row col-md-10 offset-md-2">
+                                  <div class="col-md-12 header-label">
+                                    <label class="col-md-10">Trigger</label>
+                                    <label class="col-md-2">Actions</label>
+                                  </div>
+                                  <div class="col-md-12 mt-2 form-inline">
+                                      <div class="col-md-10"> 
+                                            <ng-select [items]="trigger"  [selectOnTab]="true" bindValue="value" labelForId="age" placeholder="Select a trigger"
+                                            formControlName="trigger">
+                                            </ng-select>
+                                      </div>
+                                    <!-- <input type="text" class="form-control col-md-4 fileTriggerKey" formControlName="key"> -->
+                                 
+                                    <!-- <input type="text" class="form-control col-md-4 fileTriggerValue" formControlName="values"> -->
+                                    <button type="button" class="btn btn-success btn-sm ml-3" (click)="add(this.fileTransferForm.controls.trigger.value,'triggerName')">Add</button>
+                                  </div>
+                                
+                                  <div class="container filePosition" *ngIf="triggerValueTypes.length > 0">
+                                    <table class="table">
+                                      <tbody>
+                                        <tr class="row" *ngFor="let values of triggerValueTypes">
+                                          <td class="col-md-9 col-sm-9 col-xs-9 fileValue">{{values}}</td>
+                                          <td class="col-md-2 col-sm-2 col-xs-2 fileDelete"><button type="button" class="btn btn-danger btn-sm " (click)="delete(values,'triggerName')">Delete</button></td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                    </div>
+                            </div>
+                            <hr>
+                            <div class="form-group form-row justify-content-center">
+                           
+                                    <div class="row col-md-10 offset-md-2">
+                                      <div class="col-md-12 header-label">
+                                        <label class="col-md-10">Workload</label>
+                                        <label class="col-md-2">Actions</label>
+                                      </div>
+                                      <div class="col-md-12 mt-2 form-inline">
+                                          <div class="col-md-10"> 
+                                                <ng-select [items]="workload"  [selectOnTab]="true" bindValue="value" labelForId="age" placeholder="Select a WorkLoad"
+                                                formControlName="workload">
+                                                </ng-select>
+                                          </div>
+                                        <!-- <input type="text" class="form-control col-md-4 fileTriggerKey" formControlName="key"> -->
+                                     
+                                        <!-- <input type="text" class="form-control col-md-4 fileTriggerValue" formControlName="values"> -->
+                                        <button type="button" class="btn btn-success btn-sm ml-3" (click)="add(this.fileTransferForm.controls.workload.value,'workloadName')">Add</button>
+                                      </div>
+                                    
+                                      <div class="container filePosition" *ngIf="workloadValueTypes.length > 0">
+                                        <table class="table">
+                                          <tbody>
+                                            <tr class="row" *ngFor="let values of workloadValueTypes">
+                                              <td class="col-md-9 col-sm-9 col-xs-9 fileValue">{{values}}</td>
+                                              <td class="col-md-2 col-sm-2 col-xs-2 fileDelete"><button type="button" class="btn btn-danger btn-sm " (click)="delete(values,'workloadName')">Delete</button></td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                        </div>
+                                </div>
+                                <hr>
+                        
+                            <!-- <div class="form-group form-row justify-content-center">
+                           
+                                    <div class="row col-md-10 offset-md-2">
+                                      <div class="col-md-12">
+                                        <label class="col-md-10">Workload</label>
+                                        <label class="col-md-2">Actions</label>
+                                      </div>
+                                      <div class="col-md-12 form-inline">
+                                          <div class="col-md-10"> 
+                                                <ng-select [items]="workload"  [selectOnTab]="true" bindValue="value" labelForId="age" placeholder="Select a trigger"
+                                                formControlName="workload">
+                                                </ng-select>
+                                          </div>
+                                        <!-- <input type="text" class="form-control col-md-4 fileTriggerKey" formControlName="key"> -->
+                                     
+                                        <!-- <input type="text" class="form-control col-md-4 fileTriggerValue" formControlName="values"> -->
+                                        <!-- <button type="button" class="btn btn-success btn-sm ml-3" (click)="add(this.fileTransferForm.controls.trigger.value)">Add</button>
+                                      </div>
+                                      <hr>
+                                      <div class="container manualTrigger" *ngIf="valueTypes.length > 0">
+                                        <table class="table">
+                                          <tbody>
+                                            <tr *ngFor="let values of valueTypes">
+                                              <td>{{trigger.key}}</td>
+                                              <td><button type="button" class="btn btn-danger btn-sm" (click)="delete(trigger.key)">Delete</button></td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                        </div>
+                                </div> --> 
+                    </form>
+                        </div>
+                        <hr class="ng-tns-c5-5">
+                        <div class="add-transfer-btns">
+                                <button type="button" class="btn btn-primary btn-md add-btn-pad" (click)="saveTransfer()">Save</button>
+                                <button type="button" class="btn btn-default btn-md" (click)="resetTransfer()" [routerLink]="['/file-transfer/view']">Cancel</button>
+                            </div>
+              </div>
+            </div>
+        </div>
+    </div> 
