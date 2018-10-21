@@ -74,7 +74,7 @@ const TRIGGER_MANUAL_FORM = {
     key: {
         label: 'Key',
         value: '',
-        type: 'div',
+        type: 'text',
         validation: {
             required: true
         }
@@ -82,11 +82,19 @@ const TRIGGER_MANUAL_FORM = {
     value: {
         label: 'Value',
         value: '',
-        type: 'div',
+        type: 'text',
         validation: {
             required: true
         }
     },
+    div: {
+        label: '',
+        value: '',
+        type: 'div',
+        validation: {
+            required: false
+        }
+    }
 }
 
 const TRIGGER_FILE_WATCHER_FORM = {

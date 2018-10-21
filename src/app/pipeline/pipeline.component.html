@@ -1,0 +1,154 @@
+<div class="container-fluid p-0">
+  <div class="row">
+    <div class="col-lg-12">
+     
+    </div>
+  </div>
+
+  <div class="row">
+      <div class="col-lg-12">         
+              <div class="wizard-inner wizard-setup bg-purple text-white p-2 mb-0 ">
+                      <h3 class="text-center">Add Pipeline</h3>
+              </div>               
+        <div class="jumbotron p-4">
+           <div>
+              <form id="pipelineForm" [formGroup]="pipelineForm" class="pl-5 pr-5" novalidate="true">
+                  <div class="form-group form-row justify-content-center">
+                      <label for="name" class="col-form-label col-sm-2 required">Name</label>
+                          <div class="col-sm-6" [ngClass]="{'was-validated' : pipelineForm.controls.name.invalid && (!ispipelineFormValid || pipelineForm.controls.name.dirty || pipelineForm.controls.name.touched)}">
+                              <input id="pipelineNameInp" type="text" class="form-control" formControlName="name" minlength="4" maxlength="64" placeholder="Pipeline name" [pattern]="noSpecialCharacters" required>
+                              <div *ngIf="pipelineForm.controls.name.invalid && (!ispipelineFormValid || pipelineForm.controls.name.dirty || pipelineForm.controls.name.touched)"
+                              class="invalid-tooltip">
+                              <span *ngIf="pipelineForm.controls.name.errors.required">
+                                  {{constants.VALIDATION_REQUIRED}}
+                              </span>
+                              <span *ngIf="pipelineForm.controls.name.errors.minlength">
+                                  {{constants.VALIDATION_MINLENGTH_4}}
+                              </span>
+                              <span *ngIf="pipelineForm.controls.name.errors.pattern">
+                                  {{constants.VALIDATION_TRIGGER_NAME_PATTERN}}
+                              </span>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="form-group form-row justify-content-center">
+                          <label for="description" class="col-lg-2 col-form-label">Description</label>
+                              <div class="col-lg-6">
+                                  <textarea rows="5" maxlength="200"  placeholder="Description" class="form-control " formControlName="description"></textarea>
+                                  <span class="float-right pr-2">{{pipelineForm.controls.description.value?.length}}/200</span>
+                              </div>
+                      </div>
+
+                      <div class="form-group form-row justify-content-center">
+                          <label for="application" class="col-lg-2 col-form-label">Type </label>
+                              <div class="col-lg-6">
+                                      <ng-select id="pipelineTypeSel" [items]="pipelineTypeList" [selectOnTab]="true" bindValue="value" labelForId="age" placeholder="Select a Type"
+                                      formControlName="pipelineType" (change)="pipeLineTypeCheck(pipelineForm.controls.pipelineType.value)">
+                                      </ng-select>
+                                  <input type="text" class="form-control" style="display: none" required>
+                              </div>
+                             
+                      </div>
+                   
+                  <div class="form-group form-row justify-content-center">
+                      <label for="application" class="col-lg-2 col-form-label">Target </label>
+                          <div class="col-lg-6">
+                                  <ng-select  id="pipelineTargetSel" [items]="pipelineTargetList" [selectOnTab]="true" bindValue="value" labelForId="age" placeholder="Select a target"
+                                  formControlName="PipelineTarget">
+                                  </ng-select>
+                              <input type="text" class="form-control" style="display: none" required>
+                          </div>
+                         
+                  </div>   
+                  <hr *ngIf="triggerTab">
+                  <div *ngIf="triggerTab" class="form-group form-row justify-content-center">
+                      <div class="row col-md-8">
+                         <div class="col-md-12 header-label">
+                           <label class="col-md-4">Trigger</label>
+                           <label class="col-md-2">Order</label>
+                           <label class="col-md-4">Time Interval</label>
+                           <label class="col-md-2">Actions</label>
+                         </div>
+                          <div class="col-md-12 mt-2 form-inline"  id="pipelineTriggerSel">
+                              <div class="col-md-4"> 
+                                      <ng-select [items]="trigger"  [selectOnTab]="true" bindValue="value" labelForId="age" placeholder="Select a trigger"
+                                      formControlName="trigger">
+                                      </ng-select>
+                              </div>
+                              <div class="col-md-2"> 
+                                  <input type="text" class="form-control form-width" formControlName="triggerOrder" minlength="4" maxlength="64" placeholder="Order" [pattern]="noSpecialCharacters" required>
+                              </div>
+                              <div class="col-md-4"> 
+                                  <ng-select [items]="trigger"  [selectOnTab]="true" bindValue="value" labelForId="age" placeholder="Select a trigger"
+                                      formControlName="triggerNames">
+                                      </ng-select>
+                              </div>
+                              <button type="button" class="btn btn-success btn-sm ml-3 file-add" (click)="add('trigger')">Add</button>
+                          </div>
+                          <div class="container file-position" *ngIf="triggerValueTypes.length > 0">
+                              <table class="table">
+                              <tbody>
+                                  <tr class="row" *ngFor="let values of triggerValueTypes">
+                                          <td class="col-md-4 file-value">{{values.name}}</td>
+                                          <td class="col-md-2 file-value">{{values.triggerOrder}}</td>
+                                          <td class="col-md-4 file-value">{{values.triggerNames}}</td>
+                                  <td class="col-md-2 file-delete"><button type="button" class="btn btn-danger btn-sm " (click)="delete(values.name,'trigger')">Delete</button></td>
+                                  </tr>
+                              </tbody>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+
+                  <hr *ngIf="transferTab">
+                  <div *ngIf="transferTab" class="form-group form-row justify-content-center">
+                      <div class="row col-md-8">
+                         <div class="col-md-12 header-label">
+                           <label class="col-md-4">File Transfer</label>
+                           <label class="col-md-2">Order</label>
+                           <label class="col-md-4">Time Interval</label>
+                           <label class="col-md-2">Actions</label>
+                         </div>
+                          <div class="col-md-12 mt-2 form-inline" id="pipelineWorkloadSel">
+                              <div class="col-md-4"> 
+                                      <ng-select [items]="trigger"  [selectOnTab]="true" bindValue="value" labelForId="age" placeholder="Select a trigger"
+                                      formControlName="transfer">
+                                      </ng-select>
+                              </div>
+                              <div class="col-md-2"> 
+                                  <input type="text" class="form-control form-width" formControlName="transferOrder" minlength="4" maxlength="64" placeholder="Order" [pattern]="noSpecialCharacters" required>
+                              </div>
+                              <div class="col-md-4"> 
+                                  <ng-select [items]="trigger"  [selectOnTab]="true" bindValue="value" labelForId="age" placeholder="Select a trigger"
+                                      formControlName="transferNames">
+                                      </ng-select>
+                              </div>
+                              <button type="button" class="btn btn-success btn-sm ml-3 file-add" (click)="add('transfer')">Add</button>
+                          </div>
+                          <div class="container file-position" *ngIf="triggerValueTypes.length > 0">
+                              <table class="table">
+                              <tbody>
+                                  <tr class="row" *ngFor="let values of transferValueTypes">
+                                  <td class="col-md-4 file-value">{{values.name}}</td>
+                                  <td class="col-md-2 file-value">{{values.transferOrder}}</td>
+                                  <td class="col-md-4 file-value">{{values.transferNames}}</td>
+                                  <td class="col-md-2 file-delete"><button type="button" class="btn btn-danger btn-sm " (click)="delete(values.name,'transfer')">Delete</button></td>
+                                  </tr>
+                              </tbody>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+                   
+              </form>
+                  </div>
+                  <hr class="ng-tns-c5-5">
+                  <div class="add-pipeline-btns">
+                      <button type="button" id="savePipelineBtn" class="btn btn-primary btn-md add-btn-pad"  (click)="saveTransfer()">Save</button>
+                      <button type="button" class="btn btn-default btn-md" (click)="resetTransfer()" [routerLink]="['/pipeline/view']">Cancel</button>
+                  </div>
+        </div>
+      </div>
+  </div>
+</div> 

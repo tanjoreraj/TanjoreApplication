@@ -2,17 +2,20 @@ import { Component, OnInit, Input } from '@angular/core';
 import { NgForm, FormsModule, FormControl, FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, CanDeactivate } from '@angular/router';
 import { ConstantsService } from '../shared/constants.service';
 import { FormModelGenerator } from '../shared/form.modal.generator.service';
 import { DataService, Person } from '../shared/data';
 import { map } from 'rxjs/operators';
+import { UnsavedChangesGuard } from '../shared/unsaved-changes-guard.service';
+import * as $ from 'jquery';
+import { TreeDropdownModule } from 'ng-tree-dropdown';
 
 @Component({
     selector: 'app-dynamic-forms-page',
     templateUrl: './dynamic-forms-page.component.html',
     styleUrls: ['./dynamic-forms-page.component.css'],
-    providers: [ConstantsService, FormModelGenerator],
+    providers: [ConstantsService, FormModelGenerator, UnsavedChangesGuard],
     animations: [
         trigger('addTriggerFormStepAnimate', [
             state('in', style({ opacity: 1 })),
@@ -37,6 +40,10 @@ export class DynamicFormsPageComponent implements OnInit {
     private triggerConfigurationFormData;
     private triggerConfigurationForm: FormGroup;
     people: Person[] = [];
+    allValues: any;
+    nextStateUrl;
+    treeData: Array<any>;
+    dropdownSelectedData: Array<any> = new Array<any>();
 
     constructor(private _formBuilder: FormBuilder, private constantsService: ConstantsService, private formModalGenerator: FormModelGenerator,private dataService: DataService) {
         this.constants = constantsService;
@@ -51,17 +58,43 @@ export class DynamicFormsPageComponent implements OnInit {
            // this.selectedPeople = [this.people[0].id, this.people[1].id];
         });
 
-
-
         this.add_trigger_form_step = 'trigger_definition';
         //this.userGroupsList = ["Tooling", "Tooling Admin", "DQ Admin", "CIIG Admin", "Super Admin"];
         this.triggerTypes = ["Schedule Trigger", "Manual Trigger", "DB Polling", "File Watcher"];
         this.valueTypes = [{ "key": "key1", "value": "value1" }, { "key": "key2", "value": "value2" }, { "key": "key3", "value": "value3" }];
         this.istriggerDefinitionFormValid = true;
+
+        this.nextStateUrl = '/fileTransfer';
+
+        this.treeData = [
+            {
+              id: 0, name: 'tree 1', childData: [
+                {id: 1, name: 'child 1', childData:[]},
+                {id: 2, name: 'child 2', childData:[
+                  {id: 3, name: 'subChild 1', childData:[]}
+                ]}
+              ]
+            },
+            {
+              id: 4, name: 'tree 2', childData: [
+                {id: 5, name: 'child 3', childData:[]},
+                {id: 6, name: 'child 4', childData:[]}
+              ]
+            },
+            {
+              id: 7, name: 'tree 3', childData: []
+            }
+          ]
     }
 
-    selected(value) {
-      console.log(value,"&&&&&&&&&&&&77");
+    onDataSelection(data: any) {
+        console.log("data",data);
+        this.dropdownSelectedData = data;
+    
+      }
+
+    groupByFn(item) {
+        console.log("item",item);
     }
 
     createTriggerDefinitionForm() {
@@ -179,4 +212,35 @@ export class DynamicFormsPageComponent implements OnInit {
         console.log(this.triggerDefinitionForm.value)
         // $('.add-trigger-form-modal').modal('toggle');
     }
+
+    add(value) {
+        console.log(value);
+        /*this.allValues = {"key": key,"value": value};
+        this.valueTypes.push(this.allValues);
+        this.triggerDefinitionForm.controls['key'].setValue('');
+        this.triggerDefinitionForm.controls['values'].setValue('');*/
+      }
+    
+      delete(key) {
+        console.log(key);
+        this.valueTypes.filter(value => {
+          if(key === value.key) {
+            this.valueTypes.splice(this.valueTypes.indexOf(value), 1);
+          }
+        });
+    }
+
+    canDeactivate() {
+        console.log("yes");
+        if (this.triggerDefinitionForm.dirty) {
+          const data = {
+            url: this.nextStateUrl
+          };
+          $("#myModal").click();
+          //this._utilService.changePreventUnsaveChange(data);
+          return false;
+        } else {
+          return true;
+        }
+      }
 }

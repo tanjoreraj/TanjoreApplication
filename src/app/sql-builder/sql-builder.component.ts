@@ -1,12 +1,18 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {NgTree} from "ng.tree";
+//import {NgTree} from "ng.tree";
 import { columnDef } from '../../assets/tableconfig/columnDef';
+declare let $ : any;
+
+export interface JQuery {
+  collapse(options?: any): any;
+}
 
 @Component({
   selector: 'app-sql-builder',
   templateUrl: './sql-builder.component.html',
   styleUrls: ['./sql-builder.component.css']
 })
+
 export class SqlBuilderComponent implements OnInit, OnDestroy {
   sqlQuery: any;
   queryArray: any[];
@@ -24,8 +30,7 @@ export class SqlBuilderComponent implements OnInit, OnDestroy {
   changeData :any;
   sqlBtns = columnDef.sqlButtons;
   mainTab: boolean;
-
-
+  showSave: boolean;
 
 public treeConfig : any = {
     dataMap:{
@@ -36,31 +41,52 @@ public treeConfig : any = {
   constructor() { }
 
   ngOnInit() {
-    this.sqlQuery = null;
+    this.sqlQuery = '';
     this.queryArray = [];
     this.mnemonicsFilter = this.mnemonicsData[0]['allData'];
     this.changeData = 'allData';
     this.mainTab = false;
     this.helperTab = false;
-    this.mnemonicsTab = false;
+    this.mnemonicsTab = false;    
+      $('#helperFx').on('show.bs.collapse', function () {
+        console.log("collapse1");
+        $('#mnemonicCollapse').collapse('hide');
+      });
+
+      $('#mnemonicCollapse').on('show.bs.collapse', function () {
+        console.log("collapse2");
+        $('#helperFx').collapse('hide');
+      });
   }
 
   addQuery(value) {
-    this.sqlQuery = null;
-    this.queryArray.push(value);
-    this.sqlQuery = this.queryArray.join(' ');
+    //this.sqlQuery = '';
+   // if(value !== null && value !== undefined)
+    this.sqlQuery += value + '\xa0';
+    //this.queryArray.push(value);
+    //this.sqlQuery = this.queryArray.join(' ');
   }
 
   helperQuery() {
-    this.mainTab = true;
-    this.helperTab = !this.helperTab;
-    this.mnemonicsTab = false;
+    console.log("hi");
+      console.log("hi");
+        $(document).ready(function(){
+          $('#helperFx').on('show.bs.collapse', function () {
+            console.log("collapse1");
+            $('#mnemonicCollapse').collapse('hide');
+          });
+        });
   }
 
   mnemonicsQuery() {
-    this.mainTab = true;
-    this.mnemonicsTab = !this.mnemonicsTab;
-    this.helperTab = false;
+    console.log("hi1");
+      console.log("hi1");
+      $(document).ready(function(){
+      $('#mnemonicCollapse').on('show.bs.collapse', function () {
+        console.log("collapse2");
+        $('#helperFx').collapse('hide');
+      });
+    });
   }
 
   helperSelection(value) {
@@ -78,8 +104,14 @@ public treeConfig : any = {
     this.mnemonicsFilter.filter(item => value === item.name ? this.mnemonicsSelectedData = item: '');
   }
 
+  searchNodes(nodes) {
+    console.log("console",nodes.srcElement.innerText);
+    this.addQuery(nodes.srcElement.innerText);
+  }
+
   validateQuery(value) {
     console.log("validate",value);
+    this.showSave = true;
   }
 
   clearQuery() {

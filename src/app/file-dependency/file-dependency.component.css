@@ -1,0 +1,26 @@
+.add-transfer-btns{
+    margin-right:45px;
+    text-align:right;
+}
+.add-btn-pad{
+    margin-right:10px;
+}
+.header-label{
+    background-color: #c1c1c1;
+    font-weight: bold;
+}
+.filePosition {
+    margin: 0px;
+    padding-right: 10px;
+}
+.filePosition table {
+    margin-left: 10px;
+}
+.fileValue {
+    position: relative;
+    left: 25px;
+}
+.fileDelete {
+    position: absolute;
+    right: 3px;
+}
